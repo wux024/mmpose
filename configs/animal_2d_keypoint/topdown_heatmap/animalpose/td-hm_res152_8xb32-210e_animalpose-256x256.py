@@ -91,7 +91,7 @@ train_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/animalpose_train.json',
+        ann_file='annotations/train.json',
         data_prefix=dict(img=''),
         pipeline=train_pipeline,
     ))
@@ -105,14 +105,29 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/animalpose_val.json',
+        ann_file='annotations/val.json',
         data_prefix=dict(img=''),
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = val_dataloader
+test_dataloader = dict(
+    batch_size=32,
+    num_workers=2,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_mode=data_mode,
+        ann_file='annotations/test.json',
+        data_prefix=dict(img=''),
+        test_mode=True,
+        pipeline=val_pipeline,
+    ))
 
 # evaluators
-val_evaluator = dict(
-    type='CocoMetric', ann_file=data_root + 'annotations/animalpose_val.json')
-test_evaluator = val_evaluator
+val_evaluator  =  dict(type='CocoMetric',
+                     ann_file=data_root + 'annotations/val.json')
+test_evaluator =  dict(type='CocoMetric',
+                     ann_file=data_root + 'annotations/test.json')

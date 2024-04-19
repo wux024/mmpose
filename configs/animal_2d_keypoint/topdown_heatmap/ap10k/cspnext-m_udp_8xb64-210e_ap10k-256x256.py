@@ -159,7 +159,7 @@ train_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/ap10k-train-split1.json',
+        ann_file='annotations/train.json',
         data_prefix=dict(img='data/'),
         pipeline=train_pipeline,
     ))
@@ -173,7 +173,7 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/ap10k-val-split1.json',
+        ann_file='annotations/val.json',
         data_prefix=dict(img='data/'),
         test_mode=True,
         pipeline=val_pipeline,
@@ -188,7 +188,7 @@ test_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/ap10k-test-split1.json',
+        ann_file='annotations/test.json',
         data_prefix=dict(img='data/'),
         test_mode=True,
         pipeline=val_pipeline,
@@ -214,7 +214,7 @@ custom_hooks = [
 # evaluators
 val_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations/ap10k-val-split1.json')
+    ann_file=data_root + 'annotations/val.json')
 test_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations/ap10k-test-split1.json')
+    ann_file=data_root + 'annotations/test.json')
