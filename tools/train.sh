@@ -1,14 +1,24 @@
 #!/bin/bash
 
-if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <dataset_name> <gpu_number>"
-    echo "Using default values:"
-    DATASET_NAME=ap10k
-    gpu_number=0
-else
-    DATASET_NAME=$1
-    GPU_NUMBER=$2
-fi
+DATASET_NAME="ap10k"
+GPU_NUMBER="0"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dataset=*)
+            DATASET_NAME="${1#*=}"
+            ;;
+        --gpu=*)
+            GPU_NUMBER="${1#*=}"
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [--dataset=<dataset_name>] [--gpu=<gpu_number>]"
+            exit 1
+            ;;
+    esac
+    shift
+done
 
 configurations=(
   "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
