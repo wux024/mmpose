@@ -11,7 +11,7 @@ from .zebra_dataset import ZebraDataset
 from .apt36k_dataset import APT36KDataset
 from .aptv2_dataset import APTv2Dataset
 from .awa_dataset import AWADataset
-from .standfordextra_dataset import StandfordExtraDataset
+from .stanfordextra_dataset import StanfordExtraDataset
 from .acinoset_dataset import AcinoSetDataset
 from .aniposefly_dataset import AniposeFlyDataset
 from .aniposemouse_dataset import AniposeMouseDataset
@@ -26,7 +26,7 @@ __all__ = [
     'AnimalPoseDataset', 'AP10KDataset', 'Horse10Dataset', 'MacaqueDataset',
     'FlyDataset', 'LocustDataset', 'ZebraDataset', 'ATRWDataset',
     'AnimalKingdomDataset', 'APT36KDataset', 'APTv2Dataset', 'AWADataset',
-    'StandfordExtraDataset', 'AcinoSetDataset', 'AniposeFlyDataset',
+    'StanfordExtraDataset', 'AcinoSetDataset', 'AniposeFlyDataset',
     'AniposeMouseDataset', 'FishDataset', 'LoTEDataset', 'MarmosetDataset',
     'MouseDataset', 'OpenMonkeyChallengeDataset', 'PupsDataset'
 ]

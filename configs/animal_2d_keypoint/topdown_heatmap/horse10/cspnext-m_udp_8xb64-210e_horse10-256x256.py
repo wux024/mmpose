@@ -152,7 +152,7 @@ train_pipeline_stage2 = [
 # data loaders
 train_dataloader = dict(
     batch_size=64,
-    num_workers=10,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -165,7 +165,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=10,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -180,7 +180,7 @@ val_dataloader = dict(
     ))
 test_dataloader = dict(
     batch_size=32,
-    num_workers=10,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),

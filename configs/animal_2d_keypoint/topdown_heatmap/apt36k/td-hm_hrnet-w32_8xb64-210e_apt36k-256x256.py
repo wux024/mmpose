@@ -90,7 +90,7 @@ model = dict(
 # base dataset settings
 dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap36k/'
+data_root = 'data/apt36k/'
 
 # pipelines
 train_pipeline = [
@@ -113,7 +113,7 @@ val_pipeline = [
 # data loaders
 train_dataloader = dict(
     batch_size=64,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -121,12 +121,12 @@ train_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/train.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/train/'),
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -135,13 +135,13 @@ val_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/val.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
     batch_size=32,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -150,15 +150,23 @@ test_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/test.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/test/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
 
 # evaluators
-val_evaluator = dict(
+val_evaluator = [dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations/val.json')
-test_evaluator = dict(
+    ann_file=data_root + 'annotations/val.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
+test_evaluator = [dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations/test.json')
+    ann_file=data_root + 'annotations/test.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]

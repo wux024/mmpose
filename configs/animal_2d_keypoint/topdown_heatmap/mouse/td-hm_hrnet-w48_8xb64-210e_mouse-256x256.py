@@ -113,7 +113,7 @@ val_pipeline = [
 # data loaders
 train_dataloader = dict(
     batch_size=64,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -126,7 +126,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -134,14 +134,14 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
     batch_size=32,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -149,8 +149,8 @@ test_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        ann_file='annotations/test.json',
+        data_prefix=dict(img='images/test/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))

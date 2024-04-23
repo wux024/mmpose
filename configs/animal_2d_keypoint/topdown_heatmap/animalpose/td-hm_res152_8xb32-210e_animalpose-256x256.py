@@ -27,7 +27,8 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=256)
 
 # hooks
-default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
+default_hooks = dict(
+    checkpoint=dict(save_best='coco/AP', rule='greater', max_keep_ckpts=1))
 
 # codec settings
 codec = dict(
@@ -84,7 +85,7 @@ val_pipeline = [
 # data loaders
 train_dataloader = dict(
     batch_size=32,
-    num_workers=2,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -97,7 +98,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=2,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -112,7 +113,7 @@ val_dataloader = dict(
     ))
 test_dataloader = dict(
     batch_size=32,
-    num_workers=2,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -127,7 +128,18 @@ test_dataloader = dict(
     ))
 
 # evaluators
-val_evaluator  =  dict(type='CocoMetric',
-                     ann_file=data_root + 'annotations/val.json')
-test_evaluator =  dict(type='CocoMetric',
-                     ann_file=data_root + 'annotations/test.json')
+val_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/val.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
+test_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/test.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE')
+    ]
+
