@@ -159,16 +159,12 @@ test_dataloader = dict(
     ))
 
 # evaluators
-val_evaluator = [dict(
-    type='CocoMetric',
-    ann_file=data_root + 'annotations/val.json'),
+val_evaluator = [
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-test_evaluator = [dict(
-    type='CocoMetric',
-    ann_file=data_root + 'annotations/test.json'),
+test_evaluator = [
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
