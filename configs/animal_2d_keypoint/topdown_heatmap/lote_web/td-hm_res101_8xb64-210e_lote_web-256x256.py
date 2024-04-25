@@ -43,8 +43,8 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='ResNet',
-        depth=50,
-        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50'),
+        depth=101,
+        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet101'),
     ),
     head=dict(
         type='HeatmapHead',
@@ -62,7 +62,6 @@ model = dict(
 dataset_type = 'LoTEDataset'
 data_mode = 'topdown'
 data_root = 'data/lote/LoTE_Web'
-#data_root = 'data/lote/LoTE_Wild'
 
 # pipelines
 train_pipeline = [
@@ -114,7 +113,7 @@ val_dataloader = dict(
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = dict(
+test_dataloader  = dict(
     batch_size=32,
     num_workers=8,
     persistent_workers=True,

@@ -72,17 +72,14 @@ model = dict(
             checkpoint='https://download.openmmlab.com/mmpose/'
             'v1/pretrained_models/mae_pretrain_vit_huge_20230913.pth'),
     ),
-    neck=dict(type='FeatureMapProcessor', scale_factor=4.0, apply_relu=True),
     head=dict(
         type='HeatmapHead',
         in_channels=1280,
         out_channels=17,
-        deconv_out_channels=[],
-        deconv_kernel_sizes=[],
-        final_layer=dict(kernel_size=3, padding=1),
+        deconv_out_channels=(256, 256),
+        deconv_kernel_sizes=(4, 4),
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
-        decoder=codec,
-    ),
+        decoder=codec),
     test_cfg=dict(
         flip_test=True,
         flip_mode='heatmap',
@@ -93,7 +90,6 @@ model = dict(
 dataset_type = 'LoTEDataset'
 data_mode = 'topdown'
 data_root = 'data/lote/LoTE_Web'
-#data_root = 'data/lote/LoTE_Wild'
 
 # pipelines
 train_pipeline = [

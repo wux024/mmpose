@@ -12,7 +12,7 @@ optim_wrapper = dict(
     optimizer=dict(
         type='AdamW', lr=5e-4, betas=(0.9, 0.999), weight_decay=0.1),
     paramwise_cfg=dict(
-        num_layers=12,
+        num_layers=24,
         layer_decay_rate=0.8,
         custom_keys={
             'bias': dict(decay_multi=0.0),
@@ -59,35 +59,27 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='mmpretrain.VisionTransformer',
-        arch={
-            'embed_dims': 384,
-            'num_layers': 12,
-            'num_heads': 12,
-            'feedforward_channels': 384 * 4
-        },
+        arch='large',
         img_size=(256, 192),
         patch_size=16,
         qkv_bias=True,
-        drop_path_rate=0.1,
+        drop_path_rate=0.5,
         with_cls_token=False,
         out_type='featmap',
         patch_cfg=dict(padding=2),
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://download.openmmlab.com/mmpose/'
-            'v1/pretrained_models/mae_pretrain_vit_small_20230913.pth'),
+            'v1/pretrained_models/mae_pretrain_vit_large_20230913.pth'),
     ),
-    neck=dict(type='FeatureMapProcessor', scale_factor=4.0, apply_relu=True),
     head=dict(
         type='HeatmapHead',
-        in_channels=384,
+        in_channels=1024,
         out_channels=17,
-        deconv_out_channels=[],
-        deconv_kernel_sizes=[],
-        final_layer=dict(kernel_size=3, padding=1),
+        deconv_out_channels=(256, 256),
+        deconv_kernel_sizes=(4, 4),
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
-        decoder=codec,
-    ),
+        decoder=codec),
     test_cfg=dict(
         flip_test=True,
         flip_mode='heatmap',
@@ -98,7 +90,6 @@ model = dict(
 dataset_type = 'LoTEDataset'
 data_mode = 'topdown'
 data_root = 'data/lote/LoTE_Web'
-#data_root = 'data/lote/LoTE_Wild'
 
 # pipelines
 train_pipeline = [
