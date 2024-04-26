@@ -94,7 +94,7 @@ model = dict(
 # base dataset settings
 dataset_type = 'LoTEDataset'
 data_mode = 'topdown'
-data_root = 'data/lote/wild'
+data_root = 'data/lote/wild/'
 
 # pipelines
 train_pipeline = [
