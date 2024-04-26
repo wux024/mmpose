@@ -6,7 +6,7 @@ train_cfg = dict(max_epochs=210, val_interval=10)
 # optimizer
 optim_wrapper = dict(optimizer=dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-3,
 ))
 
 # learning policy
@@ -17,7 +17,7 @@ param_scheduler = [
     dict(
         type='MultiStepLR',
         begin=0,
-        end=210,
+        end=train_cfg['max_epochs'],
         milestones=[170, 200],
         gamma=0.1,
         by_epoch=True)
@@ -26,12 +26,8 @@ param_scheduler = [
 # automatically scaling LR based on the actual training batch size
 auto_scale_lr = dict(base_batch_size=512)
 
-# hooks
-default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater', max_keep_ckpts=1))
-
 # codec settings
-codec = dict(
-    type='MSRAHeatmap', input_size=(256, 256), heatmap_size=(64, 64), sigma=2)
+codec = dict(type='RegressionLabel', input_size=(192, 256))
 
 # model settings
 model = dict(
@@ -43,43 +39,40 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='ResNet',
-        depth=101,
-        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet101'),
+        depth=50,
+        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50'),
     ),
+    neck=dict(type='GlobalAveragePooling'),
     head=dict(
-        type='HeatmapHead',
+        type='RLEHead',
         in_channels=2048,
-        out_channels=17,
-        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        num_joints=17,
+        loss=dict(type='RLELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
         flip_test=True,
-        flip_mode='heatmap',
-        shift_heatmap=True,
+        shift_coords=True,
     ))
 
 # base dataset settings
-dataset_type = 'LoTEDataset'
+dataset_type = 'CocoDataset'
 data_mode = 'topdown'
-data_root = 'data/lote/wild'
+data_root = 'data/coco/'
 
 # pipelines
 train_pipeline = [
     dict(type='LoadImage'),
-    dict(type='GetBBoxCenterScale', padding=0.8),
+    dict(type='GetBBoxCenterScale'),
     dict(type='RandomFlip', direction='horizontal'),
-    dict(
-        type='RandomBBoxTransform',
-        shift_factor=0.25,
-        rotate_factor=180,
-        scale_factor=(0.7, 1.3)),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='GenerateTarget', encoder=codec),
     dict(type='PackPoseInputs')
 ]
 val_pipeline = [
     dict(type='LoadImage'),
-    dict(type='GetBBoxCenterScale', padding=0.8),
+    dict(type='GetBBoxCenterScale'),
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='PackPoseInputs')
 ]
@@ -87,20 +80,20 @@ val_pipeline = [
 # data loaders
 train_dataloader = dict(
     batch_size=64,
-    num_workers=8,
+    num_workers=2,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_prefix=dict(img='train2017/'),
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=8,
+    num_workers=2,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -108,39 +101,21 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/val.json',
-        data_prefix=dict(img='images/val/'),
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=f'{data_root}person_detection_results/'
+        'COCO_val2017_detections_AP_H_56_person.json',
+        data_prefix=dict(img='val2017/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader  = dict(
-    batch_size=32,
-    num_workers=8,
-    persistent_workers=True,
-    drop_last=False,
-    sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
-    dataset=dict(
-        type=dataset_type,
-        data_root=data_root,
-        data_mode=data_mode,
-        ann_file='annotations/test.json',
-        data_prefix=dict(img='images/test/'),
-        test_mode=True,
-        pipeline=val_pipeline,
-    ))
+test_dataloader = val_dataloader
+
+# hooks
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # evaluators
-val_evaluator = [dict(
+val_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations/val.json'),
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE'),
-]
-test_evaluator = [dict(
-    type='CocoMetric',
-    ann_file=data_root + 'annotations/test.json'),
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE'),
-]
+    ann_file=f'{data_root}annotations/person_keypoints_val2017.json',
+    score_mode='bbox_rle')
+test_evaluator = val_evaluator
