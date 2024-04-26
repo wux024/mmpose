@@ -49,7 +49,7 @@ model = dict(
     head=dict(
         type='HeatmapHead',
         in_channels=2048,
-        out_channels=9,
+        out_channels=5,
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
