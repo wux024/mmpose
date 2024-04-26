@@ -69,7 +69,7 @@ model = dict(
     head=dict(
         type='HeatmapHead',
         in_channels=768,
-        out_channels=5,
+        out_channels=9,
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
@@ -194,18 +194,6 @@ test_dataloader = dict(
         pipeline=val_pipeline,
     ))
 
-# evaluators
-val_evaluator = [
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE'),
-]
-test_evaluator = [
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE'),
-]
-
 # hooks
 default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
@@ -221,3 +209,11 @@ custom_hooks = [
         switch_epoch=max_epochs - stage2_num_epochs,
         switch_pipeline=train_pipeline_stage2)
 ]
+
+# evaluators
+val_evaluator = [
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
+test_evaluator = val_evaluator

@@ -49,7 +49,7 @@ model = dict(
     head=dict(
         type='HeatmapHead',
         in_channels=2048,
-        out_channels=5,
+        out_channels=9,
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
@@ -135,8 +135,4 @@ val_evaluator = [
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-test_evaluator = [
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE'),
-]
+test_evaluator = val_evaluator
