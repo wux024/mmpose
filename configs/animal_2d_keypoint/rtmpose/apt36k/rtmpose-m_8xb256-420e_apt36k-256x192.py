@@ -39,8 +39,8 @@ auto_scale_lr = dict(base_batch_size=512)
 # codec settings
 codec = dict(
     type='SimCCLabel',
-    input_size=(256, 256),
-    sigma=(5.66, 5.66),
+    input_size=(192, 256),
+    sigma=(4.9, 5.66),
     simcc_split_ratio=2.0,
     normalize=False,
     use_dark=False)
@@ -96,9 +96,9 @@ model = dict(
     test_cfg=dict(flip_test=True, ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 backend_args = dict(backend='local')
 
@@ -170,7 +170,7 @@ train_pipeline_stage2 = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=64,
+    batch_size=256,
     num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -183,7 +183,7 @@ train_dataloader = dict(
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
-    batch_size=32,
+    batch_size=128,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,
@@ -198,7 +198,7 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=32,
+    batch_size=128,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,

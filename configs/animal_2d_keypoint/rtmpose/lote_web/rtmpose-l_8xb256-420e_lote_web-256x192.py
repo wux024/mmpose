@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'LoTEDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/lote/web/'
 
 backend_args = dict(backend='local')
 

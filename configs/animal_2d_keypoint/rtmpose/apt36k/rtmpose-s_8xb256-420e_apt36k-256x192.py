@@ -11,7 +11,7 @@ randomness = dict(seed=21)
 # optimizer
 optim_wrapper = dict(
     type='OptimWrapper',
-    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=0.05),
+    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=0.),
     paramwise_cfg=dict(
         norm_decay_mult=0, bias_decay_mult=0, bypass_duplicate=True))
 
@@ -59,8 +59,8 @@ model = dict(
         type='CSPNeXt',
         arch='P5',
         expand_ratio=0.5,
-        deepen_factor=1.,
-        widen_factor=1.,
+        deepen_factor=0.33,
+        widen_factor=0.5,
         out_indices=(4, ),
         channel_attention=True,
         norm_cfg=dict(type='SyncBN'),
@@ -69,11 +69,11 @@ model = dict(
             type='Pretrained',
             prefix='backbone.',
             checkpoint='https://download.openmmlab.com/mmpose/v1/projects/'
-            'rtmposev1/cspnext-l_udp-aic-coco_210e-256x192-273b7631_20230130.pth'  # noqa
+            'rtmposev1/cspnext-s_udp-aic-coco_210e-256x192-92f5a029_20230130.pth'  # noqa
         )),
     head=dict(
         type='RTMCCHead',
-        in_channels=1024,
+        in_channels=512,
         out_channels=17,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
@@ -97,11 +97,17 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 backend_args = dict(backend='local')
+# backend_args = dict(
+#     backend='petrel',
+#     path_mapping=dict({
+#         f'{data_root}': 's3://openmmlab/datasets/detection/coco/',
+#         f'{data_root}': 's3://openmmlab/datasets/detection/coco/'
+#     }))
 
 # pipelines
 train_pipeline = [

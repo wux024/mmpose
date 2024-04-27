@@ -11,7 +11,7 @@ randomness = dict(seed=21)
 # optimizer
 optim_wrapper = dict(
     type='OptimWrapper',
-    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=0.05),
+    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=0.),
     paramwise_cfg=dict(
         norm_decay_mult=0, bias_decay_mult=0, bypass_duplicate=True))
 
@@ -59,8 +59,8 @@ model = dict(
         type='CSPNeXt',
         arch='P5',
         expand_ratio=0.5,
-        deepen_factor=1.,
-        widen_factor=1.,
+        deepen_factor=0.33,
+        widen_factor=0.5,
         out_indices=(4, ),
         channel_attention=True,
         norm_cfg=dict(type='SyncBN'),
@@ -69,12 +69,12 @@ model = dict(
             type='Pretrained',
             prefix='backbone.',
             checkpoint='https://download.openmmlab.com/mmpose/v1/projects/'
-            'rtmposev1/cspnext-l_udp-aic-coco_210e-256x192-273b7631_20230130.pth'  # noqa
+            'rtmposev1/cspnext-s_udp-aic-coco_210e-256x192-92f5a029_20230130.pth'  # noqa
         )),
     head=dict(
         type='RTMCCHead',
-        in_channels=1024,
-        out_channels=17,
+        in_channels=512,
+        out_channels=25,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'AcinosetDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/acinoset/'
 
 backend_args = dict(backend='local')
 
@@ -171,7 +171,7 @@ train_pipeline_stage2 = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=256,
+    batch_size=64,
     num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -184,7 +184,7 @@ train_dataloader = dict(
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
-    batch_size=128,
+    batch_size=32,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,
@@ -199,7 +199,7 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=128,
+    batch_size=32,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,
@@ -215,8 +215,7 @@ test_dataloader = dict(
     ))
 
 # hooks
-default_hooks = dict(
-    checkpoint=dict(save_best='coco/AP', rule='greater', max_keep_ckpts=1))
+default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
 custom_hooks = [
     dict(
@@ -232,13 +231,8 @@ custom_hooks = [
 ]
 
 # evaluators
-val_evaluator = [dict(type='CocoMetric', ann_file=data_root + 'annotations/val.json'),
-                 dict(type='PCKAccuracy', thr=0.2),
+val_evaluator = [dict(type='PCKAccuracy', thr=0.2),
                  dict(type='AUC'),
                  dict(type='EPE')
                  ]
-test_evaluator = [dict(type='CocoMetric', ann_file=data_root + 'annotations/test.json'),
-                  dict(type='PCKAccuracy', thr=0.2),
-                  dict(type='AUC'),
-                  dict(type='EPE')
-                  ]
+test_evaluator = val_evaluator

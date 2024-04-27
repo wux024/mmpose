@@ -74,7 +74,7 @@ model = dict(
     head=dict(
         type='RTMCCHead',
         in_channels=1024,
-        out_channels=17,
+        out_channels=25,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'AcinosetDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/acinoset/'
 
 backend_args = dict(backend='local')
 
@@ -215,8 +215,7 @@ test_dataloader = dict(
     ))
 
 # hooks
-default_hooks = dict(
-    checkpoint=dict(save_best='coco/AP', rule='greater', max_keep_ckpts=1))
+default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
 custom_hooks = [
     dict(
@@ -232,13 +231,8 @@ custom_hooks = [
 ]
 
 # evaluators
-val_evaluator = [dict(type='CocoMetric', ann_file=data_root + 'annotations/val.json'),
-                 dict(type='PCKAccuracy', thr=0.2),
+val_evaluator = [dict(type='PCKAccuracy', thr=0.2),
                  dict(type='AUC'),
                  dict(type='EPE')
                  ]
-test_evaluator = [dict(type='CocoMetric', ann_file=data_root + 'annotations/test.json'),
-                  dict(type='PCKAccuracy', thr=0.2),
-                  dict(type='AUC'),
-                  dict(type='EPE')
-                  ]
+test_evaluator = val_evaluator

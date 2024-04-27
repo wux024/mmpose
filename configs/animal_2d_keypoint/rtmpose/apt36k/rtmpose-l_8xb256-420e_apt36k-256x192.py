@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 backend_args = dict(backend='local')
 
