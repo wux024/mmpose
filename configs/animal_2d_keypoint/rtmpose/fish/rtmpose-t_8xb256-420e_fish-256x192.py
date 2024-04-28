@@ -74,7 +74,7 @@ model = dict(
     head=dict(
         type='RTMCCHead',
         in_channels=384,
-        out_channels=17,
+        out_channels=5,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -217,13 +217,6 @@ test_dataloader = dict(
 default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
 custom_hooks = [
-    # Turn off EMA while training the tiny model
-    # dict(
-    #     type='EMAHook',
-    #     ema_type='ExpMomentumEMA',
-    #     momentum=0.0002,
-    #     update_buffers=True,
-    #     priority=49),
     dict(
         type='mmdet.PipelineSwitchHook',
         switch_epoch=max_epochs - stage2_num_epochs,
