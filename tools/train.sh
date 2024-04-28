@@ -76,7 +76,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
-  topdown_regression)
+  topdown_others)
     echo "Preparing for topdown regression processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/ipr_res50_8xb64-210e_${DATASET_NAME}-256x256.py"

@@ -1,5 +1,5 @@
 Models:
-- Config: configs/body_2d_keypoint/topdown_heatmap/coco/cspnext-tiny_udp_8xb256-210e_coco-256x192.py
+- Config: configs/body_2d_keypoint/topdown_heatmap/coco/cspnext-t_udp_8xb256-210e_coco-256x192.py
   In Collection: UDP
   Metadata:
     Architecture: &id001

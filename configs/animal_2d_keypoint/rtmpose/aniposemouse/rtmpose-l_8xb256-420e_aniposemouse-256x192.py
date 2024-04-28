@@ -74,7 +74,7 @@ model = dict(
     head=dict(
         type='RTMCCHead',
         in_channels=1024,
-        out_channels=30,
+        out_channels=6,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AniposeFlyDataset'
+dataset_type = 'AniposeMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/aniposefly/'
+data_root = 'data/aniposemouse/'
 
 backend_args = dict(backend='local')
 

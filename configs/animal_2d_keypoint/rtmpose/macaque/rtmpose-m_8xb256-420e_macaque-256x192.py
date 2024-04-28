@@ -96,7 +96,7 @@ model = dict(
     test_cfg=dict(flip_test=True, ))
 
 # base dataset settings
-dataset_type = 'LoTEDataset'
+dataset_type = 'MacaqueDataset'
 data_mode = 'topdown'
 data_root = 'data/macaque/'
 
