@@ -9,12 +9,15 @@ MODE="topdown_heatmap"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --dataset)
+            shift
             DATASET_NAME="$1"
             ;;
         --gpu)
+            shift
             GPU_NUMBER="$1"
             ;;
         --mode)
+            shift
             MODE="$1"
             ;;
         *)
