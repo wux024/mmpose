@@ -8,18 +8,18 @@ MODE="topdown_heatmap"
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --dataset=*)
-            DATASET_NAME="${1#*=}"
+        --dataset)
+            DATASET_NAME="$1"
             ;;
-        --gpu=*)
-            GPU_NUMBER="${1#*=}"
+        --gpu)
+            GPU_NUMBER="$1"
             ;;
-        --mode=*)
-            MODE="${1#*=}"
+        --mode)
+            MODE="$1"
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset=<dataset_name>] [--gpu=<gpu_number>] [--mode={rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose}]"
+            echo "Usage: $0 [--dataset <dataset_name>] [--gpu <gpu_number>] [--mode {rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose}]"
             exit 1
             ;;
     esac
@@ -121,5 +121,5 @@ esac
 
 # Execute training based on the selected mode's configurations
 for config in "${configurations[@]}"; do
-    $CUDA_COMMAND python tools/train.py "$config" --work-dir ./work_dirs/${MODE}/${DATASET_NAME} --amp --auto-scale-lr
+    env $CUDA_COMMAND python tools/train.py "$config" --work-dir ./work_dirs/${MODE}/${DATASET_NAME} --amp --auto-scale-lr
 done
