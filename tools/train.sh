@@ -124,5 +124,10 @@ esac
 
 # Execute training based on the selected mode's configurations
 for config in "${configurations[@]}"; do
-    env $CUDA_COMMAND python tools/train.py "$config" --work-dir ./work_dirs/${MODE}/${DATASET_NAME} --amp --auto-scale-lr
+    # Extracting configuration file name without path and extension for work_dir
+    config_name=$(basename -- "$config")
+    config_name="${config_name%.*}" # Removing the file extension
+    work_dir="./work_dirs/${MODE}/${DATASET_NAME}/${config_name}"
+
+    env $CUDA_COMMAND python tools/train.py "$config" --work-dir "$work_dir" --amp --auto-scale-lr
 done
