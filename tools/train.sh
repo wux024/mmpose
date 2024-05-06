@@ -106,14 +106,14 @@ case $MODE in
   vitpose)
     echo "Preparing for ViTPose processing..."
     configurations=(
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-small_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-small-simple_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-base_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-base-simple_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-large_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-large-simple_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-huge_8xb64-210e_${DATASET_NAME}-256x192.py"
-        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-huge-simple_8xb64-210e_${DATASET_NAME}-256x192.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-small_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-small-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-base_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-base-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-large_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-large-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-huge_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-huge-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     *)
