@@ -4,26 +4,10 @@ _base_ = ['../../../_base_/default_runtime.py']
 train_cfg = dict(max_epochs=210, val_interval=10)
 
 # optimizer
-custom_imports = dict(
-    imports=['mmpose.engine.optim_wrappers.layer_decay_optim_wrapper'],
-    allow_failed_imports=False)
-
-optim_wrapper = dict(
-    optimizer=dict(
-        type='AdamW', lr=5e-4, betas=(0.9, 0.999), weight_decay=0.1),
-    paramwise_cfg=dict(
-        num_layers=12,
-        layer_decay_rate=0.8,
-        custom_keys={
-            'bias': dict(decay_multi=0.0),
-            'pos_embed': dict(decay_mult=0.0),
-            'relative_position_bias_table': dict(decay_mult=0.0),
-            'norm': dict(decay_mult=0.0),
-        },
-    ),
-    constructor='LayerDecayOptimWrapperConstructor',
-    clip_grad=dict(max_norm=1., norm_type=2),
-)
+optim_wrapper = dict(optimizer=dict(
+    type='Adam',
+    lr=5e-4,
+))
 
 # learning policy
 param_scheduler = [
@@ -43,11 +27,15 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=512)
 
 # hooks
-default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # codec settings
 codec = dict(
-    type='UDPHeatmap', input_size=(256, 256), heatmap_size=(64, 64), sigma=2)
+    type='UDPHeatmap',
+    input_size=(256, 256),
+    heatmap_size=(64, 64),
+    sigma=2,
+    heatmap_type='combined')
 
 # model settings
 model = dict(
@@ -58,43 +46,56 @@ model = dict(
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
     backbone=dict(
-        type='mmpretrain.VisionTransformer',
-        arch={
-            'embed_dims': 384,
-            'num_layers': 12,
-            'num_heads': 12,
-            'feedforward_channels': 384 * 4
-        },
-        img_size=(256, 256),
-        patch_size=16,
-        qkv_bias=True,
-        drop_path_rate=0.1,
-        with_cls_token=False,
-        out_type='featmap',
-        patch_cfg=dict(padding=2),
+        type='HRNet',
+        in_channels=3,
+        extra=dict(
+            stage1=dict(
+                num_modules=1,
+                num_branches=1,
+                block='BOTTLENECK',
+                num_blocks=(4, ),
+                num_channels=(64, )),
+            stage2=dict(
+                num_modules=1,
+                num_branches=2,
+                block='BASIC',
+                num_blocks=(4, 4),
+                num_channels=(32, 64)),
+            stage3=dict(
+                num_modules=4,
+                num_branches=3,
+                block='BASIC',
+                num_blocks=(4, 4, 4),
+                num_channels=(32, 64, 128)),
+            stage4=dict(
+                num_modules=3,
+                num_branches=4,
+                block='BASIC',
+                num_blocks=(4, 4, 4, 4),
+                num_channels=(32, 64, 128, 256))),
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://download.openmmlab.com/mmpose/'
-            'v1/pretrained_models/mae_pretrain_vit_small_20230913.pth'),
+            'pretrain_models/hrnet_w32-36af842e.pth'),
     ),
     head=dict(
         type='HeatmapHead',
-        in_channels=384,
-        out_channels=5,
-        deconv_out_channels=(256, 256),
-        deconv_kernel_sizes=(4, 4),
-        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        in_channels=32,
+        out_channels=3 * 17,
+        deconv_out_channels=None,
+        loss=dict(type='CombinedTargetMSELoss', use_target_weight=True),
         decoder=codec),
+    train_cfg=dict(compute_acc=False),
     test_cfg=dict(
         flip_test=True,
-        flip_mode='heatmap',
+        flip_mode='udp_combined',
         shift_heatmap=False,
     ))
 
 # base dataset settings
-dataset_type = 'FishDataset'
+dataset_type = 'AP10KDataset'
 data_mode = 'topdown'
-data_root = 'data/fish/'
+data_root = 'data/ap10k/'
 
 # pipelines
 train_pipeline = [
@@ -117,7 +118,7 @@ val_pipeline = [
 # data loaders
 train_dataloader = dict(
     batch_size=64,
-    num_workers=8,
+    num_workers=2,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -130,7 +131,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=8,
+    num_workers=2,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -138,31 +139,25 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/val.json',
-        data_prefix=dict(img='images/val/'),
+        ann_file='annotations/train.json',
+        data_prefix=dict(img='images/train/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = dict(
-    batch_size=32,
-    num_workers=8,
-    persistent_workers=True,
-    drop_last=False,
-    sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
-    dataset=dict(
-        type=dataset_type,
-        data_root=data_root,
-        data_mode=data_mode,
-        ann_file='annotations/test.json',
-        data_prefix=dict(img='images/test/'),
-        test_mode=True,
-        pipeline=val_pipeline,
-    ))
+test_dataloader = val_dataloader
 
 # evaluators
-val_evaluator = [
+val_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/val.json'),
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-test_evaluator = val_evaluator
+test_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/test.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
