@@ -48,7 +48,7 @@ default_hooks = dict(
 
 # codec settings
 codec = dict(
-    type='UDPHeatmap', input_size=(192, 256), heatmap_size=(48, 64), sigma=2)
+    type='UDPHeatmap', input_size=(256, 256), heatmap_size=(64, 64), sigma=2)
 
 # model settings
 model = dict(
@@ -61,7 +61,7 @@ model = dict(
     backbone=dict(
         type='mmpretrain.VisionTransformer',
         arch='large',
-        img_size=(256, 192),
+        img_size=(256, 256),
         patch_size=16,
         qkv_bias=True,
         drop_path_rate=0.5,
