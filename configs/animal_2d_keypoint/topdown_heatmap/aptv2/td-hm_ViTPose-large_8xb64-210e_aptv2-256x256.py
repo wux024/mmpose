@@ -88,9 +88,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APTv2Dataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/aptv2/'
 
 # pipelines
 train_pipeline = [

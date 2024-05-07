@@ -1,4 +1,4 @@
-_base_ = '../../../_base_/default_runtime.py'
+_base_ = './yoloxpose_s_8xb32-300e_lote_wild-640.py'
 
 # runtime
 train_cfg = dict(

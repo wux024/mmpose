@@ -1,4 +1,4 @@
-_base_ = './yoloxpose_s_8xb32-300e_coco-640.py'
+_base_ = './yoloxpose_s_8xb32-300e_apt36k-640.py'
 
 # model settings
 widen_factor = 0.375

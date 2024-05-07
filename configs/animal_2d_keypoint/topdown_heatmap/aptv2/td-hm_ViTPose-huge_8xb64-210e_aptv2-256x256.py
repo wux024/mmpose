@@ -12,8 +12,8 @@ optim_wrapper = dict(
     optimizer=dict(
         type='AdamW', lr=5e-4, betas=(0.9, 0.999), weight_decay=0.1),
     paramwise_cfg=dict(
-        num_layers=24,
-        layer_decay_rate=0.8,
+        num_layers=32,
+        layer_decay_rate=0.85,
         custom_keys={
             'bias': dict(decay_multi=0.0),
             'pos_embed': dict(decay_mult=0.0),
@@ -60,22 +60,22 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='mmpretrain.VisionTransformer',
-        arch='large',
+        arch='huge',
         img_size=(256, 256),
         patch_size=16,
         qkv_bias=True,
-        drop_path_rate=0.5,
+        drop_path_rate=0.55,
         with_cls_token=False,
         out_type='featmap',
         patch_cfg=dict(padding=2),
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://download.openmmlab.com/mmpose/'
-            'v1/pretrained_models/mae_pretrain_vit_large_20230913.pth'),
+            'v1/pretrained_models/mae_pretrain_vit_huge_20230913.pth'),
     ),
     head=dict(
         type='HeatmapHead',
-        in_channels=1024,
+        in_channels=1280,
         out_channels=17,
         deconv_out_channels=(256, 256),
         deconv_kernel_sizes=(4, 4),
@@ -88,9 +88,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APTv2Dataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/aptv2/'
 
 # pipelines
 train_pipeline = [

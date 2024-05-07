@@ -22,7 +22,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset <dataset_name>] [--gpu <gpu_number>] [--mode {rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose}]"
+            echo "Usage: $0 [--dataset <dataset_name>] [--gpu <gpu_number>] [--mode {rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose|vitpose}]"
             exit 1
             ;;
     esac
@@ -40,7 +40,7 @@ fi
 BASE_CONFIG_PATH="configs/animal_2d_keypoint/${MODE}/${DATASET_NAME}"
  
 case $MODE in
-  bottomup)
+    bottomup)
     echo "Preparing for bottomup processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/ae_hrnet-w32_8xb24-300e_${DATASET_NAME}-512x512.py"
@@ -51,7 +51,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/edpose_res50_8xb2-50e_${DATASET_NAME}-800x1333.py"
     )
     ;;
-  rtmo)
+    rtmo)
     echo "Preparing for RTMO processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/${MODE}-s_8xb32-600e_${DATASET_NAME}-640x640.py"
@@ -59,7 +59,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/${MODE}-l_16xb16-600e_${DATASET_NAME}-640x640.py"
     )
     ;;
-  rtmpose)
+    rtmpose)
     echo "Preparing for RTMPose processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/${MODE}-t_8xb256-420e_${DATASET_NAME}-256x192.py"
@@ -68,7 +68,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/${MODE}-l_8xb256-420e_${DATASET_NAME}-256x192.py"
     )
     ;;
-  topdown_heatmap)
+    topdown_heatmap)
     echo "Preparing for topdown heatmap processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
@@ -76,10 +76,13 @@ case $MODE in
         "${BASE_CONFIG_PATH}/td-hm_res152_8xb32-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w32_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/cspnext-t_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/cspnext-s_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/cspnext-l_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
-  topdown_others)
+    topdown_others)
     echo "Preparing for topdown regression processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/ipr_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
@@ -94,7 +97,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/td-reg_res152_rle-8xb64-210e_${DATASET_NAME}-384x288.py"
     )
     ;;
-  yoloxpose)
+    yoloxpose)
     echo "Preparing for YOLOX-Pose processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/${MODE}_l_8xb32-300e_${DATASET_NAME}-640.py"
@@ -103,7 +106,7 @@ case $MODE in
         "${BASE_CONFIG_PATH}/${MODE}_t_4xb64-300e_${DATASET_NAME}-416.py"
     )
     ;;
-  vitpose)
+    vitpose)
     echo "Preparing for ViTPose processing..."
     configurations=(
         "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-small_8xb64-210e_${DATASET_NAME}-256x256.py"
