@@ -39,7 +39,7 @@ else
 fi
 
 # Base configuration path shared across modes and dataset
-BASE_CONFIG_PATH="configs/animal_2d_keypoint/topdown_heatmap"
+BASE_CONFIG_PATH="configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}"
  
 case $BACKBONE in
     cspnext)
