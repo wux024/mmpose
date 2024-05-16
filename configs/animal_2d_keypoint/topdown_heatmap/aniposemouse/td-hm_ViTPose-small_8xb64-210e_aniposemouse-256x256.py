@@ -65,7 +65,7 @@ model = dict(
             'num_heads': 12,
             'feedforward_channels': 384 * 4
         },
-        img_size=(256, 192),
+        img_size=(256, 256),
         patch_size=6,
         qkv_bias=True,
         drop_path_rate=0.1,
