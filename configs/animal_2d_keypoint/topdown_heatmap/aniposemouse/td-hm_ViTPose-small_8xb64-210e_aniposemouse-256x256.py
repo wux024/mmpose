@@ -80,7 +80,7 @@ model = dict(
     head=dict(
         type='HeatmapHead',
         in_channels=384,
-        out_channels=25,
+        out_channels=6,
         deconv_out_channels=(256, 256),
         deconv_kernel_sizes=(4, 4),
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
@@ -92,9 +92,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AniposeFlyDataset'
+dataset_type = 'AniposeMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/aniposefly/'
+data_root = 'data/aniposemouse/'
 
 # pipelines
 train_pipeline = [

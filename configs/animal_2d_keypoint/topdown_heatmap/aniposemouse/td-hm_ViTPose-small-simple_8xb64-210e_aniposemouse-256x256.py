@@ -95,9 +95,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AniposeFlyDataset'
+dataset_type = 'AniposeMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/aniposefly/'
+data_root = 'data/aniposemouse/'
 
 # pipelines
 train_pipeline = [
