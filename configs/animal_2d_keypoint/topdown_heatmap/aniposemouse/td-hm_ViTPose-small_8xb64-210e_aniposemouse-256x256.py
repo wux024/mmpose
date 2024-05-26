@@ -66,7 +66,7 @@ model = dict(
             'feedforward_channels': 384 * 4
         },
         img_size=(256, 256),
-        patch_size=6,
+        patch_size=16,
         qkv_bias=True,
         drop_path_rate=0.1,
         with_cls_token=False,
