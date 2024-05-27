@@ -33,8 +33,8 @@ default_hooks = dict(
 # codec settings
 codec = dict(
     type='AssociativeEmbedding',
-    input_size=(256, 256),
-    heatmap_size=(64, 64),
+    input_size=(512, 512),
+    heatmap_size=(128, 128),
     sigma=2,
     decode_topk=30,
     decode_center_shift=0.5,
