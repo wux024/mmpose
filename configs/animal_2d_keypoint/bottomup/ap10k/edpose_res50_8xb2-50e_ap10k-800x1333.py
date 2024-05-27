@@ -15,7 +15,7 @@ from mmpose.codecs import EDPoseLabel
 from mmpose.datasets import (BottomupRandomChoiceResize, BottomupRandomCrop,
                              CocoDataset, LoadImage, PackPoseInputs,
                              RandomFlip, AP10KDataset)
-from mmpose.evaluation import (CocoMetric, PCKAccuracy, EPE, AUC)
+from mmpose.evaluation import CocoMetric
 from mmpose.models import (BottomupPoseEstimator, ChannelMapper, EDPoseHead,
                            PoseDataPreprocessor, ResNet)
 from mmpose.models.utils import FrozenBatchNorm2d
@@ -243,20 +243,20 @@ test_dataloader = dict(
 
 # evaluators
 val_evaluator = [dict(
-    type=CocoMetric,
+    type='CocoMetric',
     ann_file=data_root + 'annotations/val.json',
     nms_mode='none',
     score_mode='keypoint',),    
-    dict(type=PCKAccuracy, thr=0.2),
-    dict(type=AUC),
-    dict(type=EPE)
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE')
 ]
 test_evaluator = [dict(
     type=CocoMetric,
     ann_file=data_root + 'annotations/test.json',
     nms_mode='none',
     score_mode='keypoint',),    
-    dict(type=PCKAccuracy, thr=0.2),
-    dict(type=AUC),
-    dict(type=EPE)
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE')
 ]
