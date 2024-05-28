@@ -27,7 +27,7 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=512)
 
 # hooks
-default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
+default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
 # codec settings
 codec = dict(
@@ -156,16 +156,12 @@ test_dataloader = dict(
     ))
 
 # evaluators
-val_evaluator = [dict(
-    type='CocoMetric',
-    ann_file=data_root + 'annotations/val.json'),
+val_evaluator = [
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE')
 ]
-test_evaluator = [dict(
-    type='CocoMetric',
-    ann_file=data_root + 'annotations/test.json'),
+test_evaluator = [
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE')
