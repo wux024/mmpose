@@ -190,9 +190,9 @@ case $BACKBONE in
     swin)
     echo "Preparing for Swin processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/td-hm_swin-t-p4-w7_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_swin-b-p4-w7_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_swin-l-p4-w7_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_swin-t-p4-w7_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_swin-b-p4-w7_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_swin-l-p4-w7_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     vgg16)

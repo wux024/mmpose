@@ -44,16 +44,16 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='SwinTransformer',
-        embed_dims=96,
-        depths=[2, 2, 6, 2],
-        num_heads=[3, 6, 12, 24],
+        embed_dims=128,
+        depths=[2, 2, 18, 2],
+        num_heads=[4, 8, 16, 32],
         window_size=7,
         mlp_ratio=4,
         qkv_bias=True,
         qk_scale=None,
         drop_rate=0.,
         attn_drop_rate=0.,
-        drop_path_rate=0.2,
+        drop_path_rate=0.3,
         patch_norm=True,
         out_indices=(3, ),
         with_cp=False,
@@ -61,11 +61,11 @@ model = dict(
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://github.com/SwinTransformer/storage/releases/'
-            'download/v1.0.0/swin_tiny_patch4_window7_224.pth'),
+            'download/v1.0.0/swin_base_patch4_window7_224_22k.pth'),
     ),
     head=dict(
         type='HeatmapHead',
-        in_channels=768,
+        in_channels=1024,
         out_channels=17,
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
@@ -101,8 +101,8 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=32,
-    num_workers=2,
+    batch_size=64,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -115,7 +115,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=2,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -123,12 +123,26 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = val_dataloader
+test_dataloader = dict(
+    batch_size=32,
+    num_workers=8,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_mode=data_mode,
+        ann_file='annotations/test.json',
+        data_prefix=dict(img='images/test/'),
+        test_mode=True,
+        pipeline=val_pipeline,
+    ))
 
 # evaluators
 val_evaluator = [dict(
