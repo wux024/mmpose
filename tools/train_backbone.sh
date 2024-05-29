@@ -54,19 +54,19 @@ case $BACKBONE in
     mspn)
     echo "Preparing for MSPN processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/td-hm_mspn50_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_2xmspn50_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_3xmspn50_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_4xmspn50_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_mspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_2xmspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_3xmspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_4xmspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     rsn)
     echo "Preparing for RSNet processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/td-hm_rsn18_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_rsn50_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_2xrsn50_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_3xrsn50_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_rsn18_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_rsn50_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_2xrsn50_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_3xrsn50_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     alexnet)
@@ -84,7 +84,7 @@ case $BACKBONE in
     hourglass)
     echo "Preparing for Hourglass processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/td-hm_hourglass52_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_hourglass52_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     hrformer)
@@ -105,8 +105,8 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w32_udp-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w32_udp-regress-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_dark-8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_udp-8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_udp-8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     litehrnet)
@@ -136,8 +136,8 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_res50_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_res101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_res101_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_res152_8xb32-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_res152_dark-8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_res152_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_res152_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     resnest)
@@ -146,7 +146,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_resnest50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnest101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnest200_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_resnest269_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_resnest269_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     resnext)
@@ -154,7 +154,7 @@ case $BACKBONE in
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_resnext50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnext101_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_resnext152_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_resnext152_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     resnetv1d)
@@ -162,7 +162,7 @@ case $BACKBONE in
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_resnetv1d50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnetv1d101_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-hm_resnetv1d152_8xb32-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-hm_resnetv1d152_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     scnet)

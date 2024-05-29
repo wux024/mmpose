@@ -6,7 +6,7 @@ train_cfg = dict(max_epochs=210, val_interval=10)
 # optimizer
 optim_wrapper = dict(optimizer=dict(
     type='Adam',
-    lr=2e-2,
+    lr=5e-3,
 ))
 
 # learning policy
@@ -18,7 +18,7 @@ param_scheduler = [
         type='MultiStepLR',
         begin=0,
         end=210,
-        milestones=[170, 190, 200],
+        milestones=[170, 200],
         gamma=0.1,
         by_epoch=True)
 ]
@@ -49,14 +49,16 @@ model = dict(
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
     backbone=dict(
-        type='RSN',
+        type='MSPN',
         unit_channels=256,
         num_stages=1,
         num_units=4,
-        num_blocks=[2, 2, 2, 2],
-        num_steps=4,
+        num_blocks=[3, 4, 6, 3],
         norm_cfg=dict(type='BN'),
-    ),
+        init_cfg=dict(
+            type='Pretrained',
+            checkpoint='torchvision://resnet50',
+        )),
     head=dict(
         type='MSPNHead',
         out_shape=(64, 64),
@@ -102,7 +104,6 @@ train_pipeline = [
     dict(type='GenerateTarget', multilevel=True, encoder=codec),
     dict(type='PackPoseInputs')
 ]
-
 val_pipeline = [
     dict(type='LoadImage'),
     dict(type='GetBBoxCenterScale'),
@@ -112,8 +113,8 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=32,
-    num_workers=4,
+    batch_size=64,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -126,7 +127,7 @@ train_dataloader = dict(
     ))
 val_dataloader = dict(
     batch_size=32,
-    num_workers=4,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -134,12 +135,26 @@ val_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = val_dataloader
+test_dataloader = dict(
+    batch_size=32,
+    num_workers=8,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        data_mode=data_mode,
+        ann_file='annotations/test.json',
+        data_prefix=dict(img='images/test/'),
+        test_mode=True,
+        pipeline=val_pipeline,
+    ))
 
 # evaluators
 val_evaluator = dict(
@@ -147,6 +162,3 @@ val_evaluator = dict(
     ann_file=data_root + 'annotations/person_keypoints_val2017.json',
     nms_mode='none')
 test_evaluator = val_evaluator
-
-# fp16 settings
-fp16 = dict(loss_scale='dynamic')
