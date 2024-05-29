@@ -4,10 +4,19 @@ _base_ = ['../../../_base_/default_runtime.py']
 train_cfg = dict(max_epochs=210, val_interval=10)
 
 # optimizer
-optim_wrapper = dict(optimizer=dict(
-    type='Adam',
-    lr=5e-4,
-))
+optim_wrapper = dict(
+    optimizer=dict(
+        type='AdamW',
+        lr=5e-4,
+        betas=(0.9, 0.999),
+        weight_decay=0.01,
+    ),
+    paramwise_cfg=dict(
+        custom_keys={
+            'absolute_pos_embed': dict(decay_mult=0.),
+            'relative_position_bias_table': dict(decay_mult=0.),
+            'norm': dict(decay_mult=0.)
+        }))
 
 # learning policy
 param_scheduler = [
@@ -24,7 +33,7 @@ param_scheduler = [
 ]
 
 # automatically scaling LR based on the actual training batch size
-auto_scale_lr = dict(base_batch_size=512)
+auto_scale_lr = dict(base_batch_size=256)
 
 # hooks
 default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
@@ -43,18 +52,29 @@ model = dict(
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
     backbone=dict(
-        type='PyramidVisionTransformerV2',
-        embed_dims=64,
-        num_layers=[3, 4, 6, 3],
+        type='SwinTransformer',
+        embed_dims=192,
+        depths=[2, 2, 18, 2],
+        num_heads=[6, 12, 24, 48],
+        window_size=7,
+        mlp_ratio=4,
+        qkv_bias=True,
+        qk_scale=None,
+        drop_rate=0.,
+        attn_drop_rate=0.,
+        drop_path_rate=0.5,
+        patch_norm=True,
+        out_indices=(3, ),
+        with_cp=False,
+        convert_weights=True,
         init_cfg=dict(
             type='Pretrained',
-            checkpoint='https://github.com/whai362/PVT/'
-            'releases/download/v2/pvt_v2_b2.pth'),
+            checkpoint='https://github.com/SwinTransformer/storage/releases/'
+            'download/v1.0.0/swin_base_patch4_window7_224_22k.pth'),
     ),
-    neck=dict(type='FeatureMapProcessor', select_index=3),
     head=dict(
         type='HeatmapHead',
-        in_channels=512,
+        in_channels=1536,
         out_channels=17,
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
