@@ -45,8 +45,8 @@ case $BACKBONE in
     cspnext)
     echo "Preparing for CSPNeXt processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/cspnext-t_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/cspnext-s_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/cspnext-t_udp_8xb256-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/cspnext-s_udp_8xb256-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/cspnext-l_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
