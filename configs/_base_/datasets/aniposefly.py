@@ -282,4 +282,4 @@ dataset_info = dict(
         dict(link=('R3D', 'R3E'), id=23, color=[128, 0, 128])
     },
     joint_weights=[1.]*30,
-    sigmas=[])
+    sigmas=[1.0/30.0]*30)

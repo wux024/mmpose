@@ -331,5 +331,5 @@ dataset_info = dict(
         44: dict(link=('left_antler_base', 'left_antler_end'), id=44, color=[0, 255, 0]),
     },
     joint_weights=[1.0]*39,
-    sigmas=[]
+    sigmas=[1.0/39.0]*39
 )

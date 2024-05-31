@@ -59,4 +59,4 @@ dataset_info = dict(
         dict(link=('dorsal fin tip', 'caudal tip'), id=3, color=[255, 153, 255]),
     },
     joint_weights=[1.] * 5,
-    sigmas=[])
+    sigmas=[1.0 / 5.0] * 5)

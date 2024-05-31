@@ -127,4 +127,4 @@ dataset_info = dict(
         13: dict(link=('BL1', 'FR2'), id=13, color=[0, 255, 255]),
     },
     joint_weights=[1.] * 15,
-    sigmas=[])
+    sigmas=[1.0 / 15.0] * 15)

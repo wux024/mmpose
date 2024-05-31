@@ -141,4 +141,4 @@ dataset_info = dict(
         15: dict(link=('Hip', 'Tail'), id=15, color=[6, 156, 250]),
     },
     joint_weights=[1.0]*17,
-    sigmas=[])
+    sigmas=[1.0 / 17.0] * 17)

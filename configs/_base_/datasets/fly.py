@@ -234,4 +234,4 @@ dataset_info = dict(
         24: dict(link=('wingR', 'neck'), id=24, color=[255, 255, 255])
     },
     joint_weights=[1.] * 32,
-    sigmas=[])
+    sigmas=[1.0 / 32.0] * 32)

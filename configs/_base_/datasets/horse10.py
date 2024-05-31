@@ -198,4 +198,4 @@ dataset_info = dict(
             color=[255, 51, 255])
     },
     joint_weights=[1.] * 22,
-    sigmas=[])
+    sigmas=[1.0 / 22.0] * 22)

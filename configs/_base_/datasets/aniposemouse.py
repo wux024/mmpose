@@ -74,4 +74,4 @@ dataset_info = dict(
         dict(link=('r-edge', 'r-middle'), id=3, color=[135, 206, 250]),
     },
     joint_weights=[1.]*6,
-    sigmas=[])
+    sigmas=[1.0/6.0]*6)

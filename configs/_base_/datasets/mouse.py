@@ -120,4 +120,4 @@ dataset_info = dict(
         23: dict(link=('spine2', 'shoulder'), id=23, color=[0, 255, 255]),
     },
     joint_weights=[1.] * 12,
-    sigmas=[])
+    sigmas=[1.0 / 12.0] * 12)

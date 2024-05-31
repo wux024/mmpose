@@ -166,5 +166,5 @@ dataset_info = dict(
         10: dict(link=('RightEar0', 'RightEar1'), id=10, color=[255, 128, 0]),
     },
     joint_weights=[1.0]*20,
-    sigmas=[]
+    sigmas=[1.0 / 20.0] * 20
 )
