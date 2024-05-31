@@ -4,6 +4,8 @@
 
 DATASET_NAME="ap10k"
 BACKBONE="resnet"
+GPUS_PER_NODE=1
+NNODES=1
 
 
 # Parse command line arguments
@@ -13,18 +15,27 @@ while [[ $# -gt 0 ]]; do
             shift
             DATASET_NAME="$1"
             ;;
+        --nnodes)
+            shift
+            NNODES="$1"
+            ;;
+        --gpus-per-node)
+            shift
+            GPUS_PER_NODE="$1"
+            ;;
         --backbone)
             shift
             BACKBONE="$1"
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset <dataset_name>] [--backbone {resnet|vit}]"
+            echo "Usage: $0 [--dataset <dataset_name>] [--nnodes <num_nodes>] [--gpus-per-node <num_gpus_per_node>] [--backbone {cspnext,mspn,rsn,alexnet,cpm,hourglass,hrformer,hrnet,litehrnet,mobilenetv2,pvt,resnet}]"
             exit 1
             ;;
     esac
     shift
 done
+
 
 # Base configuration path shared across modes and dataset
 BASE_CONFIG_PATH="configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}"
@@ -223,6 +234,7 @@ for config in "${configurations[@]}"; do
     work_dir="./work_dirs/${BACKBONE}/${DATASET_NAME}/${config_name}"
 
     torchrun \
-    --nproc_per_node=$SLURM_GPUS_PER_NODE \
+    --nnodes=$NNODES \
+    --nproc_per_node=$GPUS_PER_NODE \
     python tools/train.py "$config" --work-dir "$work_dir" --amp --auto-scale-lr
 done
