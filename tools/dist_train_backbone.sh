@@ -268,15 +268,9 @@ for config in "${configurations[@]}"; do
 
     echo "Training $config_name"
 
-    python -m torch.distributed.launch \
-        --nnodes=$NNODES \
-        --node_rank=$NODE_RANK \
-        --master_addr=$MASTER_ADDR \
-        --master_port=$MASTER_PORT \
+    torchrun --standalone \
         --nproc_per_node=$GPUS_PER_NODE \
         tools/train.py $config \
-        --launcher pytorch \
-        --local-rank \
         --work-dir $work_dir \
         --amp --auto-scale-lr
 
