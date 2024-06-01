@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset <dataset_name>] [--nnodes <num_nodes>] [--gpus-per-node <num_gpus_per_node>] [--backbone {cspnext,mspn,rsn,alexnet,cpm,hourglass,hrformer,hrnet,litehrnet,mobilenetv2,pvt,resnet}]"
+            echo "Usage: $0 [--dataset <dataset_name>] [--nnodes <num_nodes>] [--gpus-per-node <num_gpus_per_node>] [--backbone <backbone_name>]"
             exit 1
             ;;
     esac
