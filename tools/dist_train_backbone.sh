@@ -274,7 +274,7 @@ for config in "${configurations[@]}"; do
         --master_addr=$MASTER_ADDR \
         --master_port=$MASTER_PORT \
         --nproc_per_node=$GPUS_PER_NODE \
-        tools/train.py $config \ 
+        tools/train.py $config \
         --launcher pytorch \
         --local-rank \
         --work-dir $work_dir \
