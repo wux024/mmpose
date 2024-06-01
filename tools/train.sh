@@ -48,7 +48,6 @@ case $MODE in
         "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb20-140e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb10-140e_${DATASET_NAME}-640x640.py"
         "${BASE_CONFIG_PATH}/dekr_hrnet-w48_8xb10-140e_${DATASET_NAME}-640x640.py"
-        #"${BASE_CONFIG_PATH}/edpose_res50_8xb2-50e_${DATASET_NAME}-800x1333.py"
     )
     ;;
     rtmo)
@@ -86,8 +85,6 @@ case $MODE in
     echo "Preparing for topdown regression processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/ipr_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/ipr_res50_debias-8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/ipr_res50_dsnt-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-reg_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-reg_res50_rle-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-reg_res101_8xb64-210e_${DATASET_NAME}-256x256.py"
