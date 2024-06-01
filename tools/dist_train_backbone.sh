@@ -236,5 +236,7 @@ for config in "${configurations[@]}"; do
     torchrun \
     --nnodes=$NNODES \
     --nproc_per_node=$GPUS_PER_NODE \
-    python tools/train.py "$config" --work-dir "$work_dir" --amp --auto-scale-lr
+    python tools/train.py $config \ 
+    --launcher pytorch \
+    --local-rank --work-dir $work_dir --amp --auto-scale-lr
 done
