@@ -57,6 +57,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/cspnext-l_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "CSPNeXt processing done."
     ;;
     mspn)
     echo "Preparing for MSPN processing..."
@@ -66,6 +67,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_3xmspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_4xmspn50_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "MSPN processing done."
     ;;
     rsn)
     echo "Preparing for RSNet processing..."
@@ -75,24 +77,28 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_2xrsn50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_3xrsn50_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "RSNet processing done."  
     ;;
     alexnet)
     echo "Preparing for AlexNet processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_alexnet_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "AlexNet processing done."
     ;;
     cpm)
     echo "Preparing for CPM processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_cpm_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "CPM processing done."
     ;;
     hourglass)
     echo "Preparing for Hourglass processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_hourglass52_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "Hourglass processing done."
     ;;
     hrformer)
     echo "Preparing for HRFormer processing..."
@@ -100,6 +106,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_hrformer-small_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrformer-base_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "HRFormer processing done."
     ;;
     hrnet)
     echo "Preparing for HRNet processing..."
@@ -115,6 +122,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_udp-8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "HRNet processing done."
     ;;
     litehrnet)
     echo "Preparing for LiteHRNet processing..."
@@ -122,12 +130,14 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_litehrnet-18_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_litehrnet-30_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "LiteHRNet processing done."
     ;;
     mobilenetv2)
     echo "Preparing for MobileNetV2 processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_mobilenetv2_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "MobileNetV2 processing done."
     ;;
     pvt)
     echo "Preparing for PVT processing..."
@@ -135,6 +145,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_pvt-s_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_pvtv2-b2_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "PVT processing done."
     ;;
     resnet)
     echo "Preparing for ResNet processing..."
@@ -146,6 +157,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_res152_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_res152_dark-8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ResNet processing done."
     ;;
     resnest)
     echo "Preparing for ResNeSt processing..."
@@ -155,6 +167,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_resnest200_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnest269_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ResNeSt processing done."
     ;;
     resnext)
     echo "Preparing for ResNeXt processing..."
@@ -163,6 +176,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_resnext101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnext152_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ResNeXt processing done."
     ;;
     resnetv1d)
     echo "Preparing for ResNetV1d processing..."
@@ -171,6 +185,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_resnetv1d101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_resnetv1d152_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ResNetV1d processing done."
     ;;
     scnet)
     echo "Preparing for SCNet processing..."
@@ -178,6 +193,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_scnet50_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_scnet101_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "SCNet processing done."
     ;;
     seresnet)
     echo "Preparing for SEResNet processing..."
@@ -186,6 +202,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_seresnet101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_seresnet152_8xb32-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "SEResNet processing done."
     ;;
     shufflenet)
     echo "Preparing for ShuffleNet processing..."
@@ -193,6 +210,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_shufflenetv1_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_shufflenetv2_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ShuffleNet processing done."
     ;;
     swin)
     echo "Preparing for Swin processing..."
@@ -201,12 +219,14 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_swin-b-p4-w7_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_swin-l-p4-w7_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "Swin processing done."
     ;;
     vgg16)
     echo "Preparing for VGG16 processing..."
     configurations=(
         "${BASE_CONFIG_PATH}/td-hm_vgg16-bn_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "VGG16 processing done."
     ;;
     vipnas)
     echo "Preparing for VIPNAS processing..."
@@ -214,6 +234,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_vipnas-mbv3_8xb64-210e_${DATASET_NAME}-256x256.py" 
         "${BASE_CONFIG_PATH}/td-hm_vipnas-res50-8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "VIPNAS processing done."
     ;;
     vitpose)
     echo "Preparing for ViTPose processing..."
@@ -227,6 +248,7 @@ case $BACKBONE in
         "${BASE_CONFIG_PATH}/td-hm_ViTPose-huge_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_ViTPose-huge-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    echo "ViTPose processing done."
     ;;
     *)
     echo "Unsupported mode: $BACKBONE. Please choose a valid mode."
@@ -241,10 +263,13 @@ for config in "${configurations[@]}"; do
     config_name="${config_name%.*}" # Removing the file extension
     work_dir="./work_dirs/${BACKBONE}/${DATASET_NAME}/${config_name}"
 
+    echo "Training $config_name"
+
     torchrun \
     --nnodes=$NNODES \
     --nproc_per_node=$GPUS_PER_NODE \
     python tools/train.py $config \ 
-    --launcher pytorch \
     --local-rank --work-dir $work_dir --amp --auto-scale-lr
+
+    echo "Training $config_name done."
 done
