@@ -11,25 +11,33 @@ NNODES=1
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --dataset)
+        -d | --dataset)
             shift
             DATASET_NAME="$1"
             ;;
-        --nnodes)
+        -n | --nnodes)
             shift
+            if ! [[ "$1" =~ ^[0-9]+$ ]]; then
+                echo "Error: --nnodes must be a positive integer."
+                exit 1
+            fi
             NNODES="$1"
             ;;
-        --gpus-per-node)
+        -g | --gpus-per-node)
             shift
+            if ! [[ "$1" =~ ^[0-9]+$ ]]; then
+                echo "Error: --gpus-per-node must be a positive integer."
+                exit 1
+            fi
             GPUS_PER_NODE="$1"
             ;;
-        --backbone)
+        -b | --backbone)
             shift
             BACKBONE="$1"
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset <dataset_name>] [--nnodes <num_nodes>] [--gpus-per-node <num_gpus_per_node>] [--backbone <backbone_name>]"
+            echo "Usage: $0 [-d|--dataset <dataset_name>] [-n|--nnodes <num_nodes>] [-g|--gpus-per-node <num_gpus_per_node>] [-b|--backbone <backbone_name>]"
             exit 1
             ;;
     esac
