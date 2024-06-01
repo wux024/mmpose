@@ -6,6 +6,9 @@ DATASET_NAME="ap10k"
 BACKBONE="resnet"
 GPUS_PER_NODE=1
 NNODES=1
+NODE_RANK=${NODE_RANK:-0}
+PORT=${PORT:-29500}
+MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
 
 
 # Parse command line arguments
@@ -265,11 +268,17 @@ for config in "${configurations[@]}"; do
 
     echo "Training $config_name"
 
-    torchrun \
-    --nnodes=$NNODES \
-    --nproc_per_node=$GPUS_PER_NODE \
-    python tools/train.py $config \ 
-    --local-rank --work-dir $work_dir --amp --auto-scale-lr
+    python -m torch.distributed.launch \
+        --nnodes=$NNODES \
+        --node_rank=$NODE_RANK \
+        --master_addr=$MASTER_ADDR \
+        --master_port=$MASTER_PORT \
+        --nproc_per_node=$GPUS_PER_NODE \
+        tools/train.py $config \ 
+        --launcher pytorch \
+        --local-rank \
+        --work-dir $work_dir \
+        --amp --auto-scale-lr
 
     echo "Training $config_name done."
 done
