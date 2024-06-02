@@ -46,7 +46,7 @@ model = dict(
     head=dict(
         type='RegressionHead',
         in_channels=2048,
-        num_joints=25,
+        num_joints=35,
         loss=dict(type='SmoothL1Loss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(

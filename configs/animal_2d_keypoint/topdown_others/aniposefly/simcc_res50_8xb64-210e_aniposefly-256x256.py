@@ -49,7 +49,7 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'aniposefly'
+dataset_type = 'AniposeFlyDataset'
 data_mode = 'topdown'
 data_root = 'data/aniposefly/'
 
