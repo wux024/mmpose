@@ -12,9 +12,6 @@ optim_wrapper = dict(optimizer=dict(
 # learning policy
 param_scheduler = [
     dict(
-        type='LinearLR', begin=0, end=500, start_factor=0.001,
-        by_epoch=False),  # warm-up
-    dict(
         type='MultiStepLR',
         begin=0,
         end=140,
@@ -24,20 +21,14 @@ param_scheduler = [
 ]
 
 # automatically scaling LR based on the actual training batch size
-auto_scale_lr = dict(base_batch_size=80)
+auto_scale_lr = dict(base_batch_size=160)
 
 # hooks
 default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # codec settings
 codec = dict(
-    type='SPR',
-    input_size=(512, 512),
-    heatmap_size=(128, 128),
-    sigma=(4, 2),
-    minimal_diagonal_length=32**0.5,
-    generate_keypoint_heatmaps=True,
-    decode_max_instances=30)
+    type='DecoupledHeatmap', input_size=(512, 512), heatmap_size=(128, 128))
 
 # model settings
 model = dict(
@@ -86,38 +77,22 @@ model = dict(
         concat=True,
     ),
     head=dict(
-        type='DEKRHead',
+        type='CIDHead',
         in_channels=480,
         num_keypoints=17,
-        heatmap_loss=dict(type='KeypointMSELoss', use_target_weight=True),
-        displacement_loss=dict(
-            type='SoftWeightSmoothL1Loss',
-            use_target_weight=True,
-            supervise_empty=False,
-            beta=1 / 9,
-            loss_weight=0.002,
-        ),
+        gfd_channels=32,
+        coupled_heatmap_loss=dict(type='FocalHeatmapLoss', loss_weight=1.0),
+        decoupled_heatmap_loss=dict(type='FocalHeatmapLoss', loss_weight=4.0),
+        contrastive_loss=dict(
+            type='InfoNCELoss', temperature=0.05, loss_weight=1.0),
         decoder=codec,
-        # This rescore net is adapted from the official repo.
-        # If you are not using the original COCO dataset for training,
-        # please make sure to remove the `rescore_cfg` item
-        rescore_cfg=dict(
-            in_channels=74,
-            norm_indexes=(5, 6),
-            init_cfg=dict(
-                type='Pretrained',
-                checkpoint='https://download.openmmlab.com/mmpose/'
-                'pretrain_models/kpt_rescore_coco-33d58c5c.pth')),
     ),
+    train_cfg=dict(max_train_instances=200),
     test_cfg=dict(
         multiscale_test=False,
         flip_test=True,
-        nms_dist_thr=0.05,
-        shift_heatmap=True,
+        shift_heatmap=False,
         align_corners=False))
-
-# enable DDP training when rescore net is used
-find_unused_parameters = True
 
 # base dataset settings
 dataset_type = 'AP10KDataset'
@@ -138,7 +113,7 @@ val_pipeline = [
     dict(
         type='BottomupResize',
         input_size=codec['input_size'],
-        size_factor=32,
+        size_factor=64,
         resize_mode='expand'),
     dict(
         type='PackPoseInputs',
@@ -150,8 +125,8 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=10,
-    num_workers=2,
+    batch_size=64,
+    num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
@@ -163,8 +138,8 @@ train_dataloader = dict(
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=32,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -178,8 +153,8 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=32,
+    num_workers=8,
     persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False, round_up=False),
@@ -197,8 +172,8 @@ test_dataloader = dict(
 val_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/val.json',
-    nms_mode='none',
-    score_mode='keypoint',),    
+    nms_thr=0.8,
+    score_mode='keypoint'),
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE')
@@ -206,8 +181,8 @@ val_evaluator = [dict(
 test_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/test.json',
-    nms_mode='none',
-    score_mode='keypoint',),    
+    nms_thr=0.8,
+    score_mode='keypoint'),
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE')

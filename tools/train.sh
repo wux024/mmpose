@@ -90,7 +90,8 @@ case $MODE in
         "${BASE_CONFIG_PATH}/td-reg_res101_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-reg_res101_rle-8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-reg_res152_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/td-reg_res152_rle-8xb64-210e_${DATASET_NAME}-256x256.py"
+        "${BASE_CONFIG_PATH}/td-reg_res152_rle-8xb64-210e_${DATASET_NAME}-256x256.py" 
+        "${BASE_CONFIG_PATH}/simcc_res50_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     yoloxpose)
