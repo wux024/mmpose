@@ -50,7 +50,7 @@ param_scheduler = [
 
 # data
 input_size = (640, 640)
-metafile = 'configs/_base_/datasets/animalpose.py'
+metafile = 'configs/_base_/datasets/acinoset.py'
 codec = dict(type='YOLOXPoseAnnotationProcessor', input_size=input_size)
 
 train_pipeline_stage1 = [
@@ -103,8 +103,8 @@ train_pipeline_stage2 = [
 ]
 
 data_mode = 'bottomup'
-dataset_type = 'AnimalPoseDataset'
-data_root = 'data/animalpose/'
+dataset_type = 'AcinosetDataset'
+data_root = 'data/acinoset/'
 
 # train datasets
 dataset_coco = dict(
@@ -112,7 +112,7 @@ dataset_coco = dict(
     data_root=data_root,
     data_mode=data_mode,
     ann_file='annotations/train.json',
-    data_prefix=dict(img=''),
+    data_prefix=dict(img='images/train/'),
     pipeline=train_pipeline_stage1,
 )
 
@@ -135,8 +135,8 @@ val_pipeline = [
 ]
 
 val_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -146,13 +146,13 @@ val_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/val.json',
-        data_prefix=dict(img=''),
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -162,7 +162,7 @@ test_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/test.json',
-        data_prefix=dict(img=''),
+        data_prefix=dict(img='images/test/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
@@ -277,7 +277,7 @@ model = dict(
             num_outs=2)),
     head=dict(
         type='RTMOHead',
-        num_keypoints=20,
+        num_keypoints=25,
         featmap_strides=(16, 32),
         head_module_cfg=dict(
             num_classes=1,
@@ -343,3 +343,17 @@ model = dict(
         score_thr=0.1,
         nms_thr=0.65,
     ))
+
+
+
+
+
+
+
+
+
+
+
+
+
+

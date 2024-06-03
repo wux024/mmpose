@@ -236,3 +236,4 @@ val_evaluator = [dict(type='PCKAccuracy', thr=0.2),
                  dict(type='EPE')
                  ]
 test_evaluator = val_evaluator
+

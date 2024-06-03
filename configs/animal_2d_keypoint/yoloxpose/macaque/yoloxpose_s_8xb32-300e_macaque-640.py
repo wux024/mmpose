@@ -224,8 +224,8 @@ val_pipeline = [
 ]
 
 val_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -240,8 +240,8 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -289,3 +289,7 @@ custom_hooks = [
         strict_load=False,
         priority=49),
 ]
+
+
+
+

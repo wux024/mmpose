@@ -248,3 +248,4 @@ test_evaluator = [dict(type='CocoMetric', ann_file=data_root + 'annotations/test
                   dict(type='AUC'),
                   dict(type='EPE')
                   ]
+

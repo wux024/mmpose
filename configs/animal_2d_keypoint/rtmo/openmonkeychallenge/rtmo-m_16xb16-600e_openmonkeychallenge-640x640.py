@@ -50,7 +50,7 @@ param_scheduler = [
 
 # data
 input_size = (640, 640)
-metafile = 'configs/_base_/datasets/macaque.py'
+metafile = 'configs/_base_/datasets/openmonkeychallenge.py'
 codec = dict(type='YOLOXPoseAnnotationProcessor', input_size=input_size)
 
 train_pipeline_stage1 = [
@@ -103,8 +103,8 @@ train_pipeline_stage2 = [
 ]
 
 data_mode = 'bottomup'
-dataset_type = 'MacaqueDataset'
-data_root = 'data/macaque/'
+dataset_type = 'OpenMonkeyChallengeDataset'
+data_root = 'data/openmonkeychallenge/'
 
 # train datasets
 dataset_coco = dict(
@@ -135,8 +135,8 @@ val_pipeline = [
 ]
 
 val_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -151,8 +151,8 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=1,
-    num_workers=2,
+    batch_size=16,
+    num_workers=8,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -343,3 +343,17 @@ model = dict(
         score_thr=0.1,
         nms_thr=0.65,
     ))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
