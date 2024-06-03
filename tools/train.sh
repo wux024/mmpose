@@ -44,10 +44,10 @@ case $MODE in
     echo "Preparing for bottomup processing..."
     configurations=(
         #"${BASE_CONFIG_PATH}/ae_hrnet-w32_8xb24-300e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/cid_hrnet-w32_8xb20-140e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb20-140e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb10-140e_${DATASET_NAME}-640x640.py"
-        "${BASE_CONFIG_PATH}/dekr_hrnet-w48_8xb10-140e_${DATASET_NAME}-640x640.py"
+        "${BASE_CONFIG_PATH}/cid_hrnet-w32_8xb64-140e_${DATASET_NAME}-512x512.py"
+        "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb64-140e_${DATASET_NAME}-512x512.py"
+        "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb64-140e_${DATASET_NAME}-640x640.py"
+        "${BASE_CONFIG_PATH}/dekr_hrnet-w48_8xb64-140e_${DATASET_NAME}-640x640.py"
     )
     ;;
     rtmo)
