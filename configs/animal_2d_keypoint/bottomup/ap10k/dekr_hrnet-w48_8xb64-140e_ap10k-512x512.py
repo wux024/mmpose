@@ -102,13 +102,13 @@ model = dict(
         # This rescore net is adapted from the official repo.
         # If you are not using the original COCO dataset for training,
         # please make sure to remove the `rescore_cfg` item
-        rescore_cfg=dict(
-            in_channels=74,
-            norm_indexes=(5, 6),
-            init_cfg=dict(
-                type='Pretrained',
-                checkpoint='https://download.openmmlab.com/mmpose/'
-                'pretrain_models/kpt_rescore_coco-33d58c5c.pth')),
+        # rescore_cfg=dict(
+        #     in_channels=74,
+        #     norm_indexes=(5, 6),
+        #     init_cfg=dict(
+        #         type='Pretrained',
+        #         checkpoint='https://download.openmmlab.com/mmpose/'
+        #         'pretrain_models/kpt_rescore_coco-33d58c5c.pth')),
     ),
     test_cfg=dict(
         multiscale_test=False,
