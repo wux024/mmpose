@@ -46,7 +46,7 @@ case $MODE in
         #"${BASE_CONFIG_PATH}/ae_hrnet-w32_8xb32-300e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/cid_hrnet-w32_8xb32-140e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb32-140e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb32-140e_${DATASET_NAME}-640x640.py"
+        "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb32-140e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/dekr_hrnet-w48_8xb32-140e_${DATASET_NAME}-640x640.py"
     )
     ;;
