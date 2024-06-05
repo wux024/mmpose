@@ -53,7 +53,7 @@ case $MODE in
     rtmo)
     echo "Preparing for RTMO processing..."
     configurations=(
-        "${BASE_CONFIG_PATH}/${MODE}-s_8xb32-600e_${DATASET_NAME}-640x640.py"
+        "${BASE_CONFIG_PATH}/${MODE}-s_8xb16-600e_${DATASET_NAME}-640x640.py"
         "${BASE_CONFIG_PATH}/${MODE}-m_16xb16-600e_${DATASET_NAME}-640x640.py"
         "${BASE_CONFIG_PATH}/${MODE}-l_16xb16-600e_${DATASET_NAME}-640x640.py"
     )
