@@ -261,17 +261,11 @@ val_evaluator = [dict(type='CocoMetric',
                       ann_file=data_root + 'annotations/val.json', 
                       score_mode='bbox',
                       nms_mode='none'),
-                      dict(type='PCKAccuracy', thr=0.2),
-                      dict(type='AUC'),
-                      dict(type='EPE')
                       ]
 test_evaluator = [dict(type='CocoMetric', 
                       ann_file=data_root + 'annotations/test.json', 
                       score_mode='bbox',
                       nms_mode='none'),
-                      dict(type='PCKAccuracy', thr=0.2),
-                      dict(type='AUC'),
-                      dict(type='EPE')
                       ]
 
 custom_hooks = [
