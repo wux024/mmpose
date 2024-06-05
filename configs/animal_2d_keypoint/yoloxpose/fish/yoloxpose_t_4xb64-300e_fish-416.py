@@ -51,13 +51,14 @@ train_pipeline_stage1 = [
     dict(type='GenerateTarget', encoder=_base_.codec),
     dict(
         type='PackPoseInputs',
-        extra_mapping_labels={
-            'bbox': 'bboxes',
-            'bbox_labels': 'labels',
-            'keypoints': 'keypoints',
-            'keypoints_visible': 'keypoints_visible',
-            'area': 'areas'
-        }),
+        # extra_mapping_labels={
+        #     'bbox': 'bboxes',
+        #     'bbox_labels': 'labels',
+        #     'keypoints': 'keypoints',
+        #     'keypoints_visible': 'keypoints_visible',
+        #     'area': 'areas'
+        # }
+        ),
 ]
 train_dataloader = dict(
     batch_size=64, dataset=dict(pipeline=train_pipeline_stage1))
