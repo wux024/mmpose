@@ -1,4 +1,4 @@
-_base_ = './yoloxpose_s_8xb32-300e_macaque-640.py'
+_base_ = './yoloxpose_s_8xb32-300e_awa-640.py'
 
 # model settings
 widen_factor = 0.375
@@ -75,6 +75,7 @@ val_pipeline = [
 
 val_dataloader = dict(dataset=dict(pipeline=val_pipeline, ))
 test_dataloader = val_dataloader
+
 
 
 

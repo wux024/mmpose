@@ -1,4 +1,4 @@
-_base_ = './yoloxpose_s_8xb32-300e_macaque-640.py'
+_base_ = './yoloxpose_s_8xb32-300e_animalkingdom-640.py'
 
 widen_factor = 0.75
 deepen_factor = 0.67
@@ -14,6 +14,7 @@ model = dict(
     ),
     neck=dict(in_channels=[192, 384, 768], out_channels=192, num_csp_blocks=2),
     head=dict(head_module_cfg=dict(widen_factor=widen_factor)))
+
 
 
 
