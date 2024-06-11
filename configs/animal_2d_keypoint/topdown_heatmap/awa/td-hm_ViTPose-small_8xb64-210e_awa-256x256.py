@@ -43,8 +43,7 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=512)
 
 # hooks
-default_hooks = dict(
-    checkpoint=dict(save_best='coco/AP', rule='greater', max_keep_ckpts=1))
+default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
 
 # codec settings
 codec = dict(
