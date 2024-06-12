@@ -126,7 +126,7 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=32,
+    ,
     num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -139,7 +139,7 @@ train_dataloader = dict(
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
-    batch_size=32,
+    batch_size=1,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,
@@ -154,7 +154,7 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=32,
+    batch_size=1,
     num_workers=8,
     persistent_workers=True,
     drop_last=False,
@@ -176,6 +176,7 @@ val_evaluator = [
     dict(type='EPE')
 ]
 test_evaluator = val_evaluator
+
 
 
 
