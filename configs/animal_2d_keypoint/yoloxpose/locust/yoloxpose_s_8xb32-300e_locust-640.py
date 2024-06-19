@@ -104,7 +104,9 @@ model = dict(
             act_cfg=dict(type='Swish')),
         prior_generator=dict(
             type='MlvlPointGenerator', offset=0, strides=[8, 16, 32]),
-        assigner=dict(type='SimOTAAssigner', dynamic_k_indicator='oks'),
+        assigner=dict(type='SimOTAAssigner', 
+                      dynamic_k_indicator='oks',
+                      oks_calculator=dict(type='PoseOKS', metainfo=metafile)),
         overlaps_power=0.5,
         loss_cls=dict(type='BCELoss', reduction='sum', loss_weight=1.0),
         loss_bbox=dict(

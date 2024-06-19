@@ -95,7 +95,7 @@ model = dict(
         num_keypoints=17,
         featmap_strides=(8, 16, 32),
         head_module_cfg=dict(
-            num_classes=1,
+            num_classes=11,
             in_channels=256,
             feat_channels=256,
             widen_factor=widen_factor,
@@ -104,7 +104,9 @@ model = dict(
             act_cfg=dict(type='Swish')),
         prior_generator=dict(
             type='MlvlPointGenerator', offset=0, strides=[8, 16, 32]),
-        assigner=dict(type='SimOTAAssigner', dynamic_k_indicator='oks'),
+        assigner=dict(type='SimOTAAssigner', 
+                      dynamic_k_indicator='oks',
+                      oks_calculator=dict(type='PoseOKS', metainfo=metafile)),
         overlaps_power=0.5,
         loss_cls=dict(type='BCELoss', reduction='sum', loss_weight=1.0),
         loss_bbox=dict(

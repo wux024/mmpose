@@ -44,6 +44,7 @@ param_scheduler = [
 # model
 widen_factor = 0.5
 deepen_factor = 0.33
+metafile = 'configs/_base_/datasets/ak.py'
 
 model = dict(
     type='BottomupPoseEstimator',
@@ -95,7 +96,7 @@ model = dict(
         num_keypoints=23,
         featmap_strides=(8, 16, 32),
         head_module_cfg=dict(
-            num_classes=1,
+            num_classes=5,
             in_channels=256,
             feat_channels=256,
             widen_factor=widen_factor,
@@ -104,7 +105,9 @@ model = dict(
             act_cfg=dict(type='Swish')),
         prior_generator=dict(
             type='MlvlPointGenerator', offset=0, strides=[8, 16, 32]),
-        assigner=dict(type='SimOTAAssigner', dynamic_k_indicator='oks'),
+        assigner=dict(type='SimOTAAssigner', 
+                      dynamic_k_indicator='oks',
+                      oks_calculator=dict(type='PoseOKS', metainfo=metafile)),
         overlaps_power=0.5,
         loss_cls=dict(type='BCELoss', reduction='sum', loss_weight=1.0),
         loss_bbox=dict(
@@ -121,7 +124,7 @@ model = dict(
         loss_oks=dict(
             type='OKSLoss',
             reduction='none',
-            metainfo='configs/_base_/datasets/ak.py',
+            metainfo=metafile,
             norm_target_weight=True,
             loss_weight=30.0),
         loss_vis=dict(
