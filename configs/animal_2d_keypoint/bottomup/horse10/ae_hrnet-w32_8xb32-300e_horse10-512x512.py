@@ -27,7 +27,7 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=192)
 
 # hooks
-default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater', interval=50))
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater', interval=50))
 
 # codec settings
 codec = dict(
@@ -135,7 +135,7 @@ train_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/train.json',
-        data_prefix=dict(img='images/train/'),
+        data_prefix=dict(img=''),
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
@@ -149,7 +149,7 @@ val_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/val.json',
-        data_prefix=dict(img='images/val/'),
+        data_prefix=dict(img=''),
         test_mode=True,
         pipeline=val_pipeline,
     ))
@@ -164,18 +164,24 @@ test_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/test.json',
-        data_prefix=dict(img='images/test/'),
+        data_prefix=dict(img=''),
         test_mode=True,
         pipeline=val_pipeline,
     ))
 
 # evaluators
-val_evaluator = [
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE')
+val_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/val.json',
+    nms_mode='none',
+    score_mode='keypoint',)
 ]
-test_evaluator = val_evaluator
+test_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/test.json',
+    nms_mode='none',
+    score_mode='keypoint',)
+]
 
 
 
