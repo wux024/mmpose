@@ -44,6 +44,7 @@ param_scheduler = [
 # model
 widen_factor = 0.5
 deepen_factor = 0.33
+metafile = 'configs/_base_/datasets/macaque.py'
 
 model = dict(
     type='BottomupPoseEstimator',
