@@ -123,12 +123,20 @@ test_dataloader = dict(
     ))
 
 # hooks
-default_hooks = dict(checkpoint=dict(save_best='AUC', rule='greater'))
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # evaluators
-val_evaluator = [
+val_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/val.json'),
     dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-test_evaluator = val_evaluator
+test_evaluator = [dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/test.json'),
+    dict(type='PCKAccuracy', thr=0.2),
+    dict(type='AUC'),
+    dict(type='EPE'),
+]
