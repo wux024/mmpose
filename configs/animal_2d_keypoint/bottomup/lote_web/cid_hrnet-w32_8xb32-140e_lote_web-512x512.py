@@ -173,19 +173,13 @@ val_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/val.json',
     nms_thr=0.8,
-    score_mode='keypoint'),
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE')
+    score_mode='keypoint')
 ]
 test_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/test.json',
     nms_thr=0.8,
-    score_mode='keypoint'),
-    dict(type='PCKAccuracy', thr=0.2),
-    dict(type='AUC'),
-    dict(type='EPE')
+    score_mode='keypoint')
 ]
 
 
