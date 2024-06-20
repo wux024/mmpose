@@ -117,7 +117,7 @@ model = dict(
         align_corners=False))
 
 # enable DDP training when rescore net is used
-find_unused_parameters = True
+# find_unused_parameters = True
 
 # base dataset settings
 dataset_type = 'MacaqueDataset'
