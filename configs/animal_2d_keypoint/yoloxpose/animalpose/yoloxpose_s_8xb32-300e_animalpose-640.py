@@ -11,7 +11,7 @@ train_cfg = dict(
 auto_scale_lr = dict(base_batch_size=256)
 
 default_hooks = dict(
-    checkpoint=dict(type='CheckpointHook', interval=10, max_keep_ckpts=3))
+    checkpoint=dict(save_best='coco/AP', type='CheckpointHook', interval=10, max_keep_ckpts=3))
 
 optim_wrapper = dict(
     type='OptimWrapper',
