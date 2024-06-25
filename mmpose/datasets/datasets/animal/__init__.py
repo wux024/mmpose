@@ -21,6 +21,8 @@ from .marmoset_dataset import MarmosetDataset
 from .mouse_dataset import MouseDataset
 from .openmonkeychallenge_dataset import OpenMonkeyChallengeDataset
 from .pups_dataset import PupsDataset
+from .topviewmouse_dataset import TopViewMouseDataset
+from .quadruped_dataset import QuadrupedDataset
 
 __all__ = [
     'AnimalPoseDataset', 'AP10KDataset', 'Horse10Dataset', 'MacaqueDataset',
@@ -28,5 +30,6 @@ __all__ = [
     'AnimalKingdomDataset', 'APT36KDataset', 'APTv2Dataset', 'AWADataset',
     'StanfordExtraDataset', 'AcinoSetDataset', 'AniposeFlyDataset',
     'AniposeMouseDataset', 'FishDataset', 'LoTEDataset', 'MarmosetDataset',
-    'MouseDataset', 'OpenMonkeyChallengeDataset', 'PupsDataset'
+    'MouseDataset', 'OpenMonkeyChallengeDataset', 'PupsDataset', 'TopViewMouseDataset', 
+    'QuadrupedDataset'
 ]
