@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 '''
-@Project -> File   ：mmpose -> mouse
+@Project -> File   ：mmpose -> topviewmouse.py
 @Author ：Wu X.
 @Email  : wux024@nenu.edu.cn
 @Date   ：2024/6/25 12:00
