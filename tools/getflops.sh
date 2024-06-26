@@ -44,8 +44,8 @@ case $MODE in
     echo "Preparing for bottomup processing..."
     configurations=(
         #"${BASE_CONFIG_PATH}/ae_hrnet-w32_8xb32-300e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/cid_hrnet-w32_8xb32-140e_${DATASET_NAME}-512x512.py"
-        "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb32-140e_${DATASET_NAME}-512x512.py"
+        # "${BASE_CONFIG_PATH}/cid_hrnet-w32_8xb32-140e_${DATASET_NAME}-512x512.py"
+        # "${BASE_CONFIG_PATH}/cid_hrnet-w48_8xb32-140e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/dekr_hrnet-w32_8xb32-140e_${DATASET_NAME}-512x512.py"
         "${BASE_CONFIG_PATH}/dekr_hrnet-w48_8xb32-140e_${DATASET_NAME}-640x640.py"
     )
@@ -75,10 +75,10 @@ case $MODE in
         "${BASE_CONFIG_PATH}/td-hm_res152_8xb32-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w32_8xb64-210e_${DATASET_NAME}-256x256.py"
         "${BASE_CONFIG_PATH}/td-hm_hrnet-w48_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/cspnext-t_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/cspnext-s_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
-        "${BASE_CONFIG_PATH}/cspnext-l_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        # "${BASE_CONFIG_PATH}/cspnext-t_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        # "${BASE_CONFIG_PATH}/cspnext-s_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        # "${BASE_CONFIG_PATH}/cspnext-m_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
+        # "${BASE_CONFIG_PATH}/cspnext-l_udp_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
     ;;
     topdown_others)
@@ -125,5 +125,5 @@ esac
 # Execute training based on the selected mode's configurations
 for config in "${configurations[@]}"; do
     # Extracting configuration file name without path and extension for work_dir
-    python tools/analysis_tools/get_flops.py $config
+    python tools/analysis_tools/get_flops.py $config --shape 256 256
 done
