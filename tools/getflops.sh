@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DATASET_NAME="ap10k"
-GPU_NUMBER="0"
 MODE="topdown_heatmap"
 
 
@@ -12,29 +11,18 @@ while [[ $# -gt 0 ]]; do
             shift
             DATASET_NAME="$1"
             ;;
-        --gpu)
-            shift
-            GPU_NUMBER="$1"
-            ;;
         --mode)
             shift
             MODE="$1"
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--dataset <dataset_name>] [--gpu <gpu_number>] [--mode {rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose|vitpose}]"
+            echo "Usage: $0 [--dataset <dataset_name>] [--mode {rtmo|rtmpose|bottomup|topdown_heatmap|topdown_regression|yoloxpose|vitpose}]"
             exit 1
             ;;
     esac
     shift
 done
-
-# Determine CUDA command prefix based on GPU_NUMBER
-if [[ "$GPU_NUMBER" != "0" && -n "$GPU_NUMBER" ]]; then
-    CUDA_COMMAND="CUDA_VISIBLE_DEVICES=$GPU_NUMBER "
-else
-    CUDA_COMMAND="" # No need to set CUDA_VISIBLE_DEVICES for default or invalid values
-fi
 
 # Base configuration path shared across modes and dataset
 BASE_CONFIG_PATH="configs/animal_2d_keypoint/${MODE}/${DATASET_NAME}"
