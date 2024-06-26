@@ -113,5 +113,6 @@ esac
 # Execute training based on the selected mode's configurations
 for config in "${configurations[@]}"; do
     # Extracting configuration file name without path and extension for work_dir
+    echo "Processing configuration: $config"
     python tools/analysis_tools/get_flops.py $config --input-shape 256 256
 done
