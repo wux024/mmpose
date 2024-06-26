@@ -292,4 +292,4 @@ dataset_info = dict(
 
     },
     joint_weights=[1.]*25,
-    sigmas=[])
+    sigmas=[1.0/25.0]*25)
