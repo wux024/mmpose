@@ -318,7 +318,7 @@ dataset_info = dict(
             }
         },
         joint_weights=[1.0]*27,
-        sigmas=[0.1]*27,
+        sigmas=[1.0/27.0]*27,
         skeleton_info={
             0: {
                 "link": [
