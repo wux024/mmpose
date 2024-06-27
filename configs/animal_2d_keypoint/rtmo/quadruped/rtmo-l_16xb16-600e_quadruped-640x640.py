@@ -50,7 +50,7 @@ param_scheduler = [
 
 # data
 input_size = (640, 640)
-metafile = 'configs/_base_/datasets/ap10k.py'
+metafile = 'configs/_base_/datasets/quadruped.py'
 codec = dict(type='YOLOXPoseAnnotationProcessor', input_size=input_size)
 
 train_pipeline_stage1 = [
@@ -103,8 +103,8 @@ train_pipeline_stage2 = [
 ]
 
 data_mode = 'bottomup'
-dataset_type = 'AP10KDataset'
-data_root = 'data/ap10k/'
+dataset_type = 'QuadrupedDataset'
+data_root = 'data/quadruped/'
 
 # train datasets
 dataset_coco = dict(

@@ -87,7 +87,7 @@ model = dict(
     head=dict(
         type='AssociativeEmbeddingHead',
         in_channels=32,
-        num_keypoints=17,
+        num_keypoints=39,
         tag_dim=1,
         tag_per_keypoint=True,
         deconv_out_channels=None,
@@ -104,9 +104,9 @@ model = dict(
         align_corners=False))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'QuadrupedDataset'
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
+data_root = 'data/quadruped/'
 
 # pipelines
 train_pipeline = []

@@ -120,9 +120,9 @@ model = dict(
 # find_unused_parameters = True
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'TopviewMouseDataset'
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
+data_root = 'data/topviewmouse/'
 
 # pipelines
 train_pipeline = [

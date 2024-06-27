@@ -46,7 +46,7 @@ model = dict(
     head=dict(
         type='RegressionHead',
         in_channels=2048,
-        num_joints=17,
+        num_joints=27,
         loss=dict(type='SmoothL1Loss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
@@ -55,9 +55,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'TopViewMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/topviewmouse/'
 
 # pipelines
 train_pipeline = [

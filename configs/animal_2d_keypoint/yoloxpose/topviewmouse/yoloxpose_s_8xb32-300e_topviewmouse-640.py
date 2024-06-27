@@ -44,7 +44,7 @@ param_scheduler = [
 # model
 widen_factor = 0.5
 deepen_factor = 0.33
-metafile = 'configs/_base_/datasets/ap10k.py'
+metafile = 'configs/_base_/datasets/topviewmouse.py'
 
 model = dict(
     type='BottomupPoseEstimator',
@@ -93,7 +93,7 @@ model = dict(
         act_cfg=dict(type='Swish')),
     head=dict(
         type='YOLOXPoseHead',
-        num_keypoints=17,
+        num_keypoints=27,
         featmap_strides=(8, 16, 32),
         head_module_cfg=dict(
             num_classes=50,
@@ -195,8 +195,8 @@ train_pipeline_stage2 = [
 ]
 
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
-data_type = 'AP10KDataset'
+data_root = 'data/topviewmouse/'
+data_type = 'TopViewmouseDataset'
 
 dataset_coco = dict(
     type=data_type,

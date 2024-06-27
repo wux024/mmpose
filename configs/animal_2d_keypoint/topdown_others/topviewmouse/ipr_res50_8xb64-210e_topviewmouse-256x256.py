@@ -50,7 +50,7 @@ model = dict(
         type='DSNTHead',
         in_channels=2048,
         in_featuremap_size=(8, 8),
-        num_joints=17,
+        num_joints=27,
         loss=dict(
             type='MultipleLossWrapper',
             losses=[
@@ -69,9 +69,9 @@ model = dict(
         'pretrain_models/td-hm_res50_8xb64-210e_coco-256x192.pth'))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'TopViewMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/topviewmouse/'
 
 # pipelines
 train_pipeline = [

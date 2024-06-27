@@ -79,7 +79,7 @@ model = dict(
     head=dict(
         type='CIDHead',
         in_channels=480,
-        num_keypoints=17,
+        num_keypoints=39,
         gfd_channels=32,
         coupled_heatmap_loss=dict(type='FocalHeatmapLoss', loss_weight=1.0),
         decoupled_heatmap_loss=dict(type='FocalHeatmapLoss', loss_weight=4.0),
@@ -95,9 +95,9 @@ model = dict(
         align_corners=False))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'QuadrupedDataset'
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
+data_root = 'data/quadruped/'
 
 # pipelines
 train_pipeline = [

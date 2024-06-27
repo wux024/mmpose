@@ -74,7 +74,7 @@ model = dict(
     head=dict(
         type='RTMCCHead',
         in_channels=1024,
-        out_channels=17,
+        out_channels=27,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -97,9 +97,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'TopViewMouseDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/topviewmouse/'
 
 backend_args = dict(backend='local')
 

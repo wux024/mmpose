@@ -1,4 +1,4 @@
-_base_ = './yoloxpose_s_8xb32-300e_ap10k-640.py'
+_base_ = './yoloxpose_s_8xb32-300e_topviewmouse-640.py'
 
 widen_factor = 1
 deepen_factor = 1

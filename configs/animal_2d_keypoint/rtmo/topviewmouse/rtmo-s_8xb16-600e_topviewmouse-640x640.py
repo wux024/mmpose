@@ -50,7 +50,7 @@ param_scheduler = [
 
 # data
 input_size = (640, 640)
-metafile = 'configs/_base_/datasets/ap10k.py'
+metafile = 'configs/_base_/datasets/topviewmouse.py'
 codec = dict(type='YOLOXPoseAnnotationProcessor', input_size=input_size)
 
 train_pipeline_stage1 = [
@@ -106,8 +106,8 @@ train_pipeline_stage2 = [
 ]
 
 data_mode = 'bottomup'
-dataset_type = 'AP10KDataset'
-data_root = 'data/ap10k/'
+dataset_type = 'TopViewMouseDataset'
+data_root = 'data/topviewmouse/'
 
 # train datasets
 dataset_coco = dict(
@@ -273,7 +273,7 @@ model = dict(
             num_outs=2)),
     head=dict(
         type='RTMOHead',
-        num_keypoints=17,
+        num_keypoints=27,
         featmap_strides=(16, 32),
         head_module_cfg=dict(
             num_classes=1,

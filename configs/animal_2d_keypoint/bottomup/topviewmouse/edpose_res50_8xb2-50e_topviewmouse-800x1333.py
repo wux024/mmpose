@@ -14,7 +14,7 @@ from torch.optim import Adam
 from mmpose.codecs import EDPoseLabel
 from mmpose.datasets import (BottomupRandomChoiceResize, BottomupRandomCrop,
                              CocoDataset, LoadImage, PackPoseInputs,
-                             RandomFlip, AP10KDataset)
+                             RandomFlip, TopviewMouseDataset)
 from mmpose.evaluation import CocoMetric
 from mmpose.models import (BottomupPoseEstimator, ChannelMapper, EDPoseHead,
                            PoseDataPreprocessor, ResNet)
@@ -138,9 +138,9 @@ model = dict(
 find_unused_parameters = True
 
 # base dataset settings
-dataset_type = AP10KDataset
+dataset_type = TopviewMouseDataset
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
+data_root = 'data/topviewmouse/'
 
 # pipelines
 train_pipeline = [

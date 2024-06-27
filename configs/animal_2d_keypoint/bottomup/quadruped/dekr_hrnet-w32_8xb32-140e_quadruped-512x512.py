@@ -88,7 +88,7 @@ model = dict(
     head=dict(
         type='DEKRHead',
         in_channels=480,
-        num_keypoints=17,
+        num_keypoints=39,
         heatmap_loss=dict(type='KeypointMSELoss', use_target_weight=True),
         displacement_loss=dict(
             type='SoftWeightSmoothL1Loss',
@@ -120,9 +120,9 @@ model = dict(
 # find_unused_parameters = True
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'QuadrupedDataset'
 data_mode = 'bottomup'
-data_root = 'data/ap10k/'
+data_root = 'data/quadruped/'
 
 # pipelines
 train_pipeline = [

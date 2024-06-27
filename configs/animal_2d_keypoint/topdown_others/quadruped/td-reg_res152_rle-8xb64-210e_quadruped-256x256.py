@@ -46,7 +46,7 @@ model = dict(
     head=dict(
         type='RLEHead',
         in_channels=2048,
-        num_joints=17,
+        num_joints=39,
         loss=dict(type='RLELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(
@@ -55,9 +55,9 @@ model = dict(
     ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'QuadrupedDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/quadruped/'
 
 # pipelines
 train_pipeline = [
