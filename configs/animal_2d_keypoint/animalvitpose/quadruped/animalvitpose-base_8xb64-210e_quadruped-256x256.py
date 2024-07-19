@@ -79,8 +79,8 @@ model = dict(
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 16 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=(256, 256),
-        deconv_kernel_sizes=(4, 4),
+        deconv_out_channels=(256,),
+        deconv_kernel_sizes=(4,),
         loss=dict(type='KLDiscretLoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(flip_test=True))
