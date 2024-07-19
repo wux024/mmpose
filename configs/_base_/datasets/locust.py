@@ -260,4 +260,4 @@ dataset_info = dict(
         dict(link=('hindlegR4', 'hindlegR3'), id=25, color=[255, 255, 255])
     },
     joint_weights=[1.] * 35,
-    sigmas=[])
+    sigmas=[1.0 / 35.0] * 35)

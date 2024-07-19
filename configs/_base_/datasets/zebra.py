@@ -61,4 +61,4 @@ dataset_info = dict(
         7: dict(link=('tailtip', 'tailbase'), id=7, color=[255, 255, 255])
     },
     joint_weights=[1.] * 9,
-    sigmas=[])
+    sigmas=[1.0 / 9.0] * 9)
