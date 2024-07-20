@@ -114,7 +114,7 @@ case $MODE in
     )
     ;;
     animalvitpose)
-    echo "Preparing for AnimalViTPose processing with 256x256 input size..."
+    echo "Preparing for AnimalViTPose processing..."
     configurations=(
         "configs/animal_2d_keypoint/animalvitpose/${DATASET_NAME}/animalvitpose-small_8xb64-210e_${DATASET_NAME}-256x256.py"
         "configs/animal_2d_keypoint/animalvitpose/${DATASET_NAME}/animalvitpose-base_8xb64-210e_${DATASET_NAME}-256x256.py"
