@@ -103,6 +103,7 @@ case $MODE in
         "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-large-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
         "configs/animal_2d_keypoint/topdown_heatmap/${DATASET_NAME}/td-hm_ViTPose-huge-simple_8xb64-210e_${DATASET_NAME}-256x256.py"
     )
+    ;;
     animalvitpose)
     echo "Preparing for AnimalViTPose processing..."
     configurations=(
@@ -110,7 +111,7 @@ case $MODE in
         "configs/animal_2d_keypoint/animalvitpose/${DATASET_NAME}/animalvitpose-base_8xb64-210e_${DATASET_NAME}-256x256.py"
         "configs/animal_2d_keypoint/animalvitpose/${DATASET_NAME}/animalvitpose-large_8xb64-210e_${DATASET_NAME}-256x256.py"
         "configs/animal_2d_keypoint/animalvitpose/${DATASET_NAME}/animalvitpose-huge_8xb64-210e_${DATASET_NAME}-256x256.py"
-    ) 
+    )
     ;;
     *)
     echo "Unsupported mode: $MODE. Please choose a valid mode."
