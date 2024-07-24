@@ -47,7 +47,7 @@ default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater', max_ke
 
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(384, 384), sigma=9.0, simcc_split_ratio=2.0)
+    type='SimCCLabel', input_size=(256, 256), sigma=6.0, simcc_split_ratio=2.0)
 
 # model settings
 model = dict(
@@ -60,7 +60,7 @@ model = dict(
     backbone=dict(
         type='mmpretrain.VisionTransformer',
         arch='huge',
-        img_size=(384, 384),
+        img_size=(256, 256),
         patch_size=16,
         qkv_bias=True,
         drop_path_rate=0.55,
@@ -79,8 +79,8 @@ model = dict(
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 16 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=(384,),
-        deconv_kernel_sizes=(4,),
+        deconv_out_channels=(256, 256),
+        deconv_kernel_sizes=(4, 4),
         loss=dict(type='KLDiscretLoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(flip_test=True))

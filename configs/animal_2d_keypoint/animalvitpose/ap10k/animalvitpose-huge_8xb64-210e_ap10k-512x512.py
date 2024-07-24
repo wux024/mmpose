@@ -79,8 +79,8 @@ model = dict(
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 16 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=(512, 512),
-        deconv_kernel_sizes=(4, 4),
+        deconv_out_channels=(512,),
+        deconv_kernel_sizes=(4,),
         loss=dict(type='KLDiscretLoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(flip_test=True))
@@ -110,7 +110,7 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=64,
+    batch_size=32,
     num_workers=8,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),

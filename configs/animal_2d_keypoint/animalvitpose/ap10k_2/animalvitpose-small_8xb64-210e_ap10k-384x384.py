@@ -12,7 +12,7 @@ optim_wrapper = dict(
     optimizer=dict(
         type='AdamW', lr=5e-4, betas=(0.9, 0.999), weight_decay=0.1),
     paramwise_cfg=dict(
-        num_layers=24,
+        num_layers=12,
         layer_decay_rate=0.8,
         custom_keys={
             'bias': dict(decay_multi=0.0),
@@ -47,7 +47,7 @@ default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater', max_ke
 
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(512, 512), sigma=12.0, simcc_split_ratio=2.0)
+    type='SimCCLabel', input_size=(384, 384), sigma=9.0, simcc_split_ratio=2.0)
 
 # model settings
 model = dict(
@@ -59,28 +59,33 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='mmpretrain.VisionTransformer',
-        arch='large',
-        img_size=(512, 512),
+        arch={
+            'embed_dims': 384,
+            'num_layers': 12,
+            'num_heads': 12,
+            'feedforward_channels': 384 * 4
+        },
+        img_size=(384, 384),
         patch_size=16,
         qkv_bias=True,
-        drop_path_rate=0.5,
+        drop_path_rate=0.1,
         with_cls_token=False,
         out_type='featmap',
         patch_cfg=dict(padding=2),
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://download.openmmlab.com/mmpose/'
-            'v1/pretrained_models/mae_pretrain_vit_large_20230913.pth'),
+            'v1/pretrained_models/mae_pretrain_vit_small_20230913.pth'),
     ),
     head=dict(
         type='SimCCHead',
-        in_channels=1024,
+        in_channels=384,
         out_channels=17,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 16 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=(512,),
-        deconv_kernel_sizes=(4,),
+        deconv_out_channels=(384, 384),
+        deconv_kernel_sizes=(4, 4),
         loss=dict(type='KLDiscretLoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(flip_test=True))
