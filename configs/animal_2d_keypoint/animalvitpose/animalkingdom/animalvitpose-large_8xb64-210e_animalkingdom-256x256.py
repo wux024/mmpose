@@ -119,7 +119,7 @@ train_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/train.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/train/'),
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
@@ -133,7 +133,7 @@ val_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/val.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
@@ -148,7 +148,7 @@ test_dataloader = dict(
         data_root=data_root,
         data_mode=data_mode,
         ann_file='annotations/test.json',
-        data_prefix=dict(img='data/'),
+        data_prefix=dict(img='images/test/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
