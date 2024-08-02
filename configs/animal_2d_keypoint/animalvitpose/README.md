@@ -23,7 +23,7 @@ pip install -U openmim
 mim install mmengine
 pip install mmcv==2.1.0 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.1/index.html
 mim install "mmdet>=3.1.0"
-mim install "mmpretrain==1.2.0"
+mim install 'mmpretrain>=1.0.0'
 ```
 
 4. Clone the mmpose repository and install the required dependencies.
