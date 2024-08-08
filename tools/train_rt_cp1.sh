@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dataset="${dataset}"
+dataset="ap10k"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --dataset)
