@@ -24,8 +24,8 @@ echo "Training with image size: $imgsz"
 configurations=(
     "${BASE_CONFIG_PATH}/rtmpose-t_8xb256-420e_apt36k-${imgsz}x${imgsz}.py"
     "${BASE_CONFIG_PATH}/rtmpose-s_8xb256-420e_apt36k-${imgsz}x${imgsz}.py"
-    "${BASE_CONFIG_PATH}/rtmpose-m_8xb256-420e_ap10k-${imgsz}x${imgsz}.py"
-    "${BASE_CONFIG_PATH}/rtmpose-l_8xb256-420e_ap10k-${imgsz}x${imgsz}.py"
+    "${BASE_CONFIG_PATH}/rtmpose-m_8xb256-420e_apt36k-${imgsz}x${imgsz}.py"
+    "${BASE_CONFIG_PATH}/rtmpose-l_8xb256-420e_apt36k-${imgsz}x${imgsz}.py"
 )
 
 # Execute training based on the selected mode's configurations
