@@ -18,13 +18,6 @@ done
 BASE_CONFIG_PATH="configs/animal_2d_keypoint/rt/${dataset}"
 
 configurations=(
-    "cspnext-t_udp_8xb64-210e_${dataset}-640x640.py"
-    "cspnext-s_udp_8xb64-210e_${dataset}-640x640.py"
-    "cspnext-m_udp_8xb64-210e_${dataset}-640x640.py"
-    "cspnext-l_udp_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_litehrnet-18_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_litehrnet-30_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_mobilenetv2_8xb64-210e_${dataset}-640x640.py"
     "td-hm_shufflenetv1_8xb64-210e_${dataset}-640x640.py"
     "td-hm_shufflenetv2_8xb64-210e_${dataset}-640x640.py"
     "td-hm_vipnas-mbv3_8xb64-210e_${dataset}-640x640.py"
