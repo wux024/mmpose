@@ -17,7 +17,7 @@ param_scheduler = [
     dict(
         type='MultiStepLR',
         begin=0,
-        end=train_cfg['max_epochs'],
+        end=210,
         milestones=[170, 200],
         gamma=0.1,
         by_epoch=True)
@@ -26,9 +26,12 @@ param_scheduler = [
 # automatically scaling LR based on the actual training batch size
 auto_scale_lr = dict(base_batch_size=512)
 
+# hooks
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
+
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(640, 640), sigma=15.0, simcc_split_ratio=2.0)
+    type='MSRAHeatmap', input_size=(640, 640), heatmap_size=(160, 160), sigma=5)
 
 # model settings
 model = dict(
@@ -38,30 +41,25 @@ model = dict(
         mean=[123.675, 116.28, 103.53],
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
-    backbone=dict(
-        type='MobileNetV2',
-        widen_factor=1.,
-        out_indices=(7, ),
-        init_cfg=dict(
-            type='Pretrained',
-            checkpoint='mmcls://mobilenet_v2',
-        )),
+    backbone=dict(type='ViPNAS_MobileNetV3'),
     head=dict(
-        type='SimCCHead',
-        in_channels=1280,
+        type='ViPNASHead',
+        in_channels=160,
         out_channels=17,
-        input_size=codec['input_size'],
-        in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
-        simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=None,
-        loss=dict(type='KLDiscretLoss', use_target_weight=True),
+        deconv_out_channels=(160, 160, 160),
+        deconv_num_groups=(160, 160, 160),
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
-    test_cfg=dict(flip_test=True, ))
+    test_cfg=dict(
+        flip_test=True,
+        flip_mode='heatmap',
+        shift_heatmap=True,
+    ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 # pipelines
 train_pipeline = [
@@ -69,7 +67,10 @@ train_pipeline = [
     dict(type='GetBBoxCenterScale'),
     dict(type='RandomFlip', direction='horizontal'),
     dict(type='RandomHalfBody'),
-    dict(type='RandomBBoxTransform'),
+    dict(
+        type='RandomBBoxTransform',
+        rotate_factor=60,
+        scale_factor=(0.75, 1.25)),
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='GenerateTarget', encoder=codec),
     dict(type='PackPoseInputs')
@@ -80,9 +81,6 @@ val_pipeline = [
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='PackPoseInputs')
 ]
-
-# hooks
-default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # data loaders
 train_dataloader = dict(
@@ -144,4 +142,3 @@ test_evaluator = [dict(
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-

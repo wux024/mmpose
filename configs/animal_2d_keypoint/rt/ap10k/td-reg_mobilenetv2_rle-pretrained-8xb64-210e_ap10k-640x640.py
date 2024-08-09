@@ -60,9 +60,9 @@ model = dict(
 )
 
 # base dataset settings
-dataset_type = 'CocoDataset'
+dataset_type = 'AP10KDataset'
 data_mode = 'topdown'
-data_root = 'data/coco/'
+data_root = 'data/ap10k/'
 
 # pipelines
 train_pipeline = [

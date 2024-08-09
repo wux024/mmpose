@@ -17,7 +17,7 @@ param_scheduler = [
     dict(
         type='MultiStepLR',
         begin=0,
-        end=train_cfg['max_epochs'],
+        end=210,
         milestones=[170, 200],
         gamma=0.1,
         by_epoch=True)
@@ -26,9 +26,12 @@ param_scheduler = [
 # automatically scaling LR based on the actual training batch size
 auto_scale_lr = dict(base_batch_size=512)
 
+# hooks
+default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
+
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(640, 640), sigma=15.0, simcc_split_ratio=2.0)
+    type='MSRAHeatmap', input_size=(640, 640), heatmap_size=(160, 160), sigma=5)
 
 # model settings
 model = dict(
@@ -39,29 +42,42 @@ model = dict(
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
     backbone=dict(
-        type='MobileNetV2',
-        widen_factor=1.,
-        out_indices=(7, ),
-        init_cfg=dict(
-            type='Pretrained',
-            checkpoint='mmcls://mobilenet_v2',
+        type='LiteHRNet',
+        in_channels=3,
+        extra=dict(
+            stem=dict(stem_channels=32, out_channels=32, expand_ratio=1),
+            num_stages=3,
+            stages_spec=dict(
+                num_modules=(3, 8, 3),
+                num_branches=(2, 3, 4),
+                num_blocks=(2, 2, 2),
+                module_type=('LITE', 'LITE', 'LITE'),
+                with_fuse=(True, True, True),
+                reduce_ratios=(8, 8, 8),
+                num_channels=(
+                    (40, 80),
+                    (40, 80, 160),
+                    (40, 80, 160, 320),
+                )),
+            with_head=True,
         )),
     head=dict(
-        type='SimCCHead',
-        in_channels=1280,
+        type='HeatmapHead',
+        in_channels=40,
         out_channels=17,
-        input_size=codec['input_size'],
-        in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
-        simcc_split_ratio=codec['simcc_split_ratio'],
         deconv_out_channels=None,
-        loss=dict(type='KLDiscretLoss', use_target_weight=True),
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
         decoder=codec),
-    test_cfg=dict(flip_test=True, ))
+    test_cfg=dict(
+        flip_test=True,
+        flip_mode='heatmap',
+        shift_heatmap=True,
+    ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 # pipelines
 train_pipeline = [
@@ -69,7 +85,10 @@ train_pipeline = [
     dict(type='GetBBoxCenterScale'),
     dict(type='RandomFlip', direction='horizontal'),
     dict(type='RandomHalfBody'),
-    dict(type='RandomBBoxTransform'),
+    dict(
+        type='RandomBBoxTransform',
+        rotate_factor=60,
+        scale_factor=(0.75, 1.25)),
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='GenerateTarget', encoder=codec),
     dict(type='PackPoseInputs')
@@ -80,9 +99,6 @@ val_pipeline = [
     dict(type='TopdownAffine', input_size=codec['input_size']),
     dict(type='PackPoseInputs')
 ]
-
-# hooks
-default_hooks = dict(checkpoint=dict(save_best='coco/AP', rule='greater'))
 
 # data loaders
 train_dataloader = dict(
@@ -133,15 +149,14 @@ test_dataloader = dict(
 val_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/val.json'),
-    dict(type='PCKAccuracy', thr=0.05),
+    dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
 ]
 test_evaluator = [dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/test.json'),
-    dict(type='PCKAccuracy', thr=0.05),
+    dict(type='PCKAccuracy', thr=0.2),
     dict(type='AUC'),
     dict(type='EPE'),
 ]
-

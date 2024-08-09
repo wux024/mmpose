@@ -28,7 +28,7 @@ auto_scale_lr = dict(base_batch_size=512)
 
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(640, 640), sigma=15.0, simcc_split_ratio=2.0)
+    type='SimCCLabel', input_size=(192, 256), sigma=6.0, simcc_split_ratio=2.0)
 
 # model settings
 model = dict(
@@ -38,30 +38,25 @@ model = dict(
         mean=[123.675, 116.28, 103.53],
         std=[58.395, 57.12, 57.375],
         bgr_to_rgb=True),
-    backbone=dict(
-        type='MobileNetV2',
-        widen_factor=1.,
-        out_indices=(7, ),
-        init_cfg=dict(
-            type='Pretrained',
-            checkpoint='mmcls://mobilenet_v2',
-        )),
+    backbone=dict(type='ViPNAS_MobileNetV3'),
     head=dict(
         type='SimCCHead',
-        in_channels=1280,
+        in_channels=160,
         out_channels=17,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=None,
+        deconv_type='vipnas',
+        deconv_out_channels=(160, 160, 160),
+        deconv_num_groups=(160, 160, 160),
         loss=dict(type='KLDiscretLoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(flip_test=True, ))
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 # pipelines
 train_pipeline = [

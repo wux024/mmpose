@@ -6,7 +6,7 @@ train_cfg = dict(max_epochs=210, val_interval=10)
 # optimizer
 optim_wrapper = dict(optimizer=dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-3,
 ))
 
 # learning policy
@@ -27,8 +27,7 @@ param_scheduler = [
 auto_scale_lr = dict(base_batch_size=512)
 
 # codec settings
-codec = dict(
-    type='SimCCLabel', input_size=(640, 640), sigma=15.0, simcc_split_ratio=2.0)
+codec = dict(type='RegressionLabel', input_size=(192, 256))
 
 # model settings
 model = dict(
@@ -44,24 +43,26 @@ model = dict(
         out_indices=(7, ),
         init_cfg=dict(
             type='Pretrained',
-            checkpoint='mmcls://mobilenet_v2',
-        )),
+            prefix='backbone.',
+            checkpoint='https://download.openmmlab.com/mmpose/top_down/'
+            'mobilenetv2/mobilenetv2_coco_256x192-d1e58e7b_20200727.pth')),
+    neck=dict(type='GlobalAveragePooling'),
     head=dict(
-        type='SimCCHead',
+        type='RLEHead',
         in_channels=1280,
-        out_channels=17,
-        input_size=codec['input_size'],
-        in_featuremap_size=tuple([s // 32 for s in codec['input_size']]),
-        simcc_split_ratio=codec['simcc_split_ratio'],
-        deconv_out_channels=None,
-        loss=dict(type='KLDiscretLoss', use_target_weight=True),
+        num_joints=17,
+        loss=dict(type='RLELoss', use_target_weight=True),
         decoder=codec),
-    test_cfg=dict(flip_test=True, ))
+    test_cfg=dict(
+        flip_test=True,
+        shift_coords=True,
+    ),
+)
 
 # base dataset settings
-dataset_type = 'AP10KDataset'
+dataset_type = 'APT36KDataset'
 data_mode = 'topdown'
-data_root = 'data/ap10k/'
+data_root = 'data/apt36k/'
 
 # pipelines
 train_pipeline = [
