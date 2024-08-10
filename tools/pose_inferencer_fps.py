@@ -26,8 +26,8 @@ if __name__ == '__main__':
     for model in models:
         pth_files = glob(os.path.join(f"{base_dir}/{model}", "*.pth"))[0]
         cmd = ['python', 'demo/inferencer_demo.py',
-               '--input', f"{data_dir}",
+               f"{data_dir}",
                '--pose2d', f"{base_dir}/{model}/{model}.py",
-               '--pose2d-weights', f"{base_dir}/{model}/{pth_files}",
+               '--pose2d-weights', f"{pth_files}",
                ]
         subprocess.call(cmd)

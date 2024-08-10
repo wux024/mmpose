@@ -28,7 +28,7 @@ auto_scale_lr = dict(base_batch_size=512)
 
 # codec settings
 codec = dict(
-    type='SimCCLabel', input_size=(192, 256), sigma=6.0, simcc_split_ratio=2.0)
+    type='SimCCLabel', input_size=(640, 640), sigma=15.0, simcc_split_ratio=2.0)
 
 # model settings
 model = dict(
