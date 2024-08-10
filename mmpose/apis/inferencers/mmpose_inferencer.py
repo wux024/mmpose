@@ -14,6 +14,8 @@ from .hand3d_inferencer import Hand3DInferencer
 from .pose2d_inferencer import Pose2DInferencer
 from .pose3d_inferencer import Pose3DInferencer
 
+import time
+
 InstanceList = List[InstanceData]
 InputType = Union[str, np.ndarray]
 InputsType = Union[InputType, Sequence[InputType]]
@@ -203,9 +205,16 @@ class MMPoseInferencer(BaseMMPoseInferencer):
 
         preds = []
 
+        fps = 0
+        count = 0
+
         for proc_inputs, ori_inputs in (track(inputs, description='Inference')
                                         if self.show_progress else inputs):
+            count += 1
+            start = time.time()
             preds = self.forward(proc_inputs, **forward_kwargs)
+            end = time.time()
+            fps += 1.0 / (end - start)
 
             visualization = self.visualize(ori_inputs, preds,
                                            **visualize_kwargs)
@@ -215,6 +224,7 @@ class MMPoseInferencer(BaseMMPoseInferencer):
                 return_datasamples=return_datasamples,
                 **postprocess_kwargs)
             yield results
+        print('FPS:', fps / count)
 
         if self._video_input:
             self._finalize_video_processing(
