@@ -3,6 +3,7 @@
 import argparse
 import os
 from glob import glob
+import subprocess
 
 
 def parse_args():
@@ -29,3 +30,4 @@ if __name__ == '__main__':
                '--pose2d', f"{base_dir}/{model}/{model}.py",
                '--pose2d-weights', f"{base_dir}/{model}/{pth_files}",
                ]
+        subprocess.call(cmd)
