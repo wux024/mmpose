@@ -1,12 +1,17 @@
 #!/bin/bash
 
 # Base configuration path shared across modes and dataset
-BASE_CONFIG_PATH="configs/animal_2d_keypoint/rtmpose/apt36k"
 
+
+dataset=ap10k
 imgsz=256
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --dataset)
+            dataset="$2"
+            shift 2
+            ;;
         --imgsz)
             imgsz="$2"
             shift 2
@@ -19,6 +24,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "Training with image size: $imgsz"
+
+BASE_CONFIG_PATH="configs/animal_2d_keypoint/rtmpose/${dataset}"
  
 
 configurations=(
