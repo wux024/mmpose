@@ -22,7 +22,6 @@ configurations=(
     "td-hm_shufflenetv2_8xb64-210e_${dataset}-640x640.py"
     "td-hm_vipnas-mbv3_8xb64-210e_${dataset}-640x640.py"
     "td-hm_vipnas-res50_8xb64-210e_${dataset}-640x640.py"
-    "td-reg_mobilenetv2_rle-8xb64-210e_${dataset}-640x640.py.py"
     "simcc_mobilenetv2_wo-deconv-8xb64-210e_${dataset}-640x640.py"
     "simcc_vipnas-mbv3_8xb64-210e_${dataset}-640x640.py"
 )

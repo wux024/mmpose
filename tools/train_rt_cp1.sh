@@ -22,9 +22,8 @@ configurations=(
     "cspnext-s_udp_8xb256-210e_${dataset}-640x640.py"
     "cspnext-m_udp_8xb64-210e_${dataset}-640x640.py"
     "cspnext-l_udp_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_litehrnet-18_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_litehrnet-30_8xb64-210e_${dataset}-640x640.py"
-    "td-hm_mobilenetv2_8xb64-210e_${dataset}-640x640.py"
+    "td-hm_mobilenetv2_8xb64-210e_${dataset}-640x640.py" 
+    "td-reg_mobilenetv2_rle-8xb64-210e_${dataset}-640x640.py.py"
 )
 
 # Execute training based on the selected mode's configurations
