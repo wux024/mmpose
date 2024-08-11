@@ -215,6 +215,8 @@ class MMPoseInferencer(BaseMMPoseInferencer):
             preds = self.forward(proc_inputs, **forward_kwargs)
             end = time.time()
             fps += 1.0 / (end - start)
+            if count == 100:
+                print(f'FPS: {fps / 100:.2f}')
 
             visualization = self.visualize(ori_inputs, preds,
                                            **visualize_kwargs)
@@ -224,7 +226,8 @@ class MMPoseInferencer(BaseMMPoseInferencer):
                 return_datasamples=return_datasamples,
                 **postprocess_kwargs)
             yield results
-        print('FPS:', fps / count)
+        if count <= 100:
+            print(f'FPS: {fps / count:.2f}')
 
         if self._video_input:
             self._finalize_video_processing(
