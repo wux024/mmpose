@@ -50,7 +50,7 @@ model = dict(
     head=dict(
         type='RLEHead',
         in_channels=1280,
-        num_joints=15,
+        num_joints=12,
         loss=dict(type='RLELoss', use_target_weight=True),
         decoder=codec),
     test_cfg=dict(

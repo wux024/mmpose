@@ -45,7 +45,7 @@ model = dict(
     head=dict(
         type='ViPNASHead',
         in_channels=160,
-        out_channels=15,
+        out_channels=27,
         deconv_out_channels=(160, 160, 160),
         deconv_num_groups=(160, 160, 160),
         loss=dict(type='KeypointMSELoss', use_target_weight=True),
