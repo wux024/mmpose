@@ -35,7 +35,7 @@ configurations=(
 # Execute training based on the selected mode's configurations
 for config in "${configurations[@]}"; do
     # Extracting configuration file name without path and extension for work_dir
-    config_name="${config_name%.*}" # Removing the file extension
+    config_name="${config%.*}" # Removing the file extension
     config_path=${BASE_CONFIG_PATH}/${config_name}/${config}
     checkpoint_path=$(find "$BASE_CONFIG_PATH/$config_name" -type f -name "*.pth" | sort -r | head -n 1)
     python tools/test.py "$config_path" "$checkpoint_path"
