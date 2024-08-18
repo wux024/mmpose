@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Base configuration path shared across modes and dataset
-BASE_CONFIG_PATH="configs/animal_2d_keypoint/rt/${dataset}"
+BASE_CONFIG_PATH="work_dirs/rt/${dataset}"
 
 configurations=(
     "cspnext-t_udp_8xb256-210e_${dataset}-640x640.py"
