@@ -165,7 +165,8 @@ def main():
             imgsz_hadamard=IMGSZ_HADAMARD,
             aliasing=ALIASING
         )
-    split_original_dataset_dir = original_dataset_dir.split("-")[1:].join("-")
+    spilt_index = original_dataset_dir.rfind('-')
+    split_original_dataset_dir = original_dataset_dir[spilt_index+1:]
     BASE_WORK_CONFIG_PATH = f"work_dirs/{MODE}/{DATASET_NAME}-{split_original_dataset_dir}"
 
     temp_dataset_dir = f"data/{DATASET_NAME}/images"
