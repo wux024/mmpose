@@ -147,7 +147,7 @@ def main():
     args = parser.parse_args()
 
     DATASET_NAME = args.dataset
-    GPU_NUMBER = args.gpu
+    GPU_NUM = args.gpu
     MODE = args.mode
     OPTICAL_FIELD_SIZE = args.optical_field_size
     SUB_OPTICAL_FIELD_SIZE = args.sub_optical_field_size
@@ -165,15 +165,13 @@ def main():
             imgsz_hadamard=IMGSZ_HADAMARD,
             aliasing=ALIASING
         )
-    spilt_index = original_dataset_dir.rfind('-')
-    split_original_dataset_dir = original_dataset_dir[spilt_index+1:]
+    _, split_original_dataset_dir = original_dataset_dir.split("-",1)
     BASE_WORK_CONFIG_PATH = f"work_dirs/{MODE}/{DATASET_NAME}-{split_original_dataset_dir}"
-
     temp_dataset_dir = f"data/{DATASET_NAME}/images"
 
     rename_dataset_directory(original_dataset_dir, temp_dataset_dir)
 
-    CUDA_COMMAND = f"CUDA_VISIBLE_DEVICES={GPU_NUMBER} " if GPU_NUMBER != '0' else ""
+    CUDA_COMMAND = f"CUDA_VISIBLE_DEVICES={GPU_NUM}"
 
     configurations = prepare_configurations(MODE, DATASET_NAME)
 
@@ -181,7 +179,7 @@ def main():
         for config in configurations:
             config_name = os.path.basename(config).split(".")[0]
             work_dir = os.path.join(BASE_WORK_CONFIG_PATH, config_name)
-            command = f"{CUDA_COMMAND}python tools/train.py {config} --work-dir {work_dir} --amp --auto-scale-lr"
+            command = f"{CUDA_COMMAND} python tools/train.py {config} --work-dir {work_dir} --amp --auto-scale-lr"
             print(f"Executing: {command}")
         subprocess.run(command, shell=True)
     finally:
