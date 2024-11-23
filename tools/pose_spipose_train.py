@@ -76,8 +76,8 @@ def prepare_configurations(mode, dataset_name):
     elif mode == 'animalvitpose':
         print("Preparing for AnimalViTPose processing...")
         configurations.extend([
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-small_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-small_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
             #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-large_8xb64-210e_{dataset_name}-256x256.py",
             #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-huge_8xb64-210e_{dataset_name}-256x256.py"
         ])
