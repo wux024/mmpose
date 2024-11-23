@@ -175,14 +175,14 @@ def main():
             imgsz_hadamard=IMGSZ_HADAMARD,
             aliasing=ALIASING
         )
-    split_original_dataset_dir = original_dataset_dir.split("-")[1]
+    _, split_original_dataset_dir = original_dataset_dir.split("-", 1)
     BASE_WORK_CONFIG_PATH = f"work_dirs/{MODE}/{DATASET_NAME}-{split_original_dataset_dir}"
 
     temp_dataset_dir = f"data/{DATASET_NAME}/images"
 
     rename_dataset_directory(original_dataset_dir, temp_dataset_dir)
 
-    CUDA_COMMAND = f"CUDA_VISIBLE_DEVICES={GPU_NUMBER} " if GPU_NUMBER != '0' else ""
+    CUDA_COMMAND = f"CUDA_VISIBLE_DEVICES={GPU_NUMBER}" 
 
     configurations = prepare_configurations(MODE, DATASET_NAME)
     
@@ -196,7 +196,7 @@ def main():
             if checkpoint_path is None:
                print(f"No checkpoint found for {work_dir}")
                continue
-            command = f"{CUDA_COMMAND}python tools/test.py  {config_path} {checkpoint_path}"
+            command = f"{CUDA_COMMAND} python tools/test.py  {config_path} {checkpoint_path}"
             print(f"Executing: {command}")
             subprocess.run(command, shell=True)
     finally:
