@@ -77,9 +77,9 @@ def prepare_configurations(mode, dataset_name):
         print("Preparing for AnimalViTPose processing...")
         configurations.extend([
             f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-small_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-large_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-huge_8xb64-210e_{dataset_name}-256x256.py"
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-large_8xb64-210e_{dataset_name}-256x256.py",
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-huge_8xb64-210e_{dataset_name}-256x256.py"
         ])
     else:
         print(f"Unsupported mode: {mode}. Please choose a valid mode.")
@@ -165,7 +165,7 @@ def main():
             imgsz_hadamard=IMGSZ_HADAMARD,
             aliasing=ALIASING
         )
-    split_original_dataset_dir = original_dataset_dir.split("-")[1]
+    split_original_dataset_dir = original_dataset_dir.split("-")[1:].join("-")
     BASE_WORK_CONFIG_PATH = f"work_dirs/{MODE}/{DATASET_NAME}-{split_original_dataset_dir}"
 
     temp_dataset_dir = f"data/{DATASET_NAME}/images"
@@ -180,7 +180,7 @@ def main():
         for config in configurations:
             config_name = os.path.basename(config).split(".")[0]
             work_dir = os.path.join(BASE_WORK_CONFIG_PATH, config_name)
-            command = f"{CUDA_COMMAND}python tools/train.py {config} {work_dir}"
+            command = f"{CUDA_COMMAND}python tools/train.py {config} --work-dir {work_dir} --amp --auto-scale-lr"
             print(f"Executing: {command}")
         subprocess.run(command, shell=True)
     finally:
