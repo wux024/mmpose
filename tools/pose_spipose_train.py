@@ -64,22 +64,22 @@ def prepare_configurations(mode, dataset_name):
     elif mode == 'vitpose':
         print("Preparing for ViTPose processing...")
         configurations.extend([
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-small-simple_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-base-simple_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-large-simple_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-huge-simple_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-small_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-base_8xb64-210e_{dataset_name}-256x256.py",
-            #f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-large_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-small-simple_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-base-simple_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-large-simple_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-huge-simple_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-small_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-base_8xb64-210e_{dataset_name}-256x256.py",
+            f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-large_8xb64-210e_{dataset_name}-256x256.py",
             f"configs/animal_2d_keypoint/topdown_heatmap/{dataset_name}/td-hm_ViTPose-huge_8xb64-210e_{dataset_name}-256x256.py"
         ])
     elif mode == 'animalvitpose':
         print("Preparing for AnimalViTPose processing...")
         configurations.extend([
             f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-small_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-large_8xb64-210e_{dataset_name}-256x256.py",
-            f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-huge_8xb64-210e_{dataset_name}-256x256.py"
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-base_8xb64-210e_{dataset_name}-256x256.py",
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-large_8xb64-210e_{dataset_name}-256x256.py",
+            #f"configs/animal_2d_keypoint/animalvitpose/{dataset_name}/animalvitpose-huge_8xb64-210e_{dataset_name}-256x256.py"
         ])
     else:
         print(f"Unsupported mode: {mode}. Please choose a valid mode.")
