@@ -7,7 +7,7 @@ def build_output_dir(
     optical_field_sizes=None, 
     sub_optical_field_sizes=None, 
     window_size=None, 
-    seed=None, 
+    hadamard_seed=None, 
     inverse=False, 
     imgsz_hadamard=None,
     aliasing=False
@@ -33,8 +33,8 @@ def build_output_dir(
     if imgsz_hadamard is not None:
         base_dir += f"-{imgsz_hadamard}"
     
-    if seed is not None:
-        base_dir += f"-{seed}"
+    if hadamard_seed is not None:
+        base_dir += f"-{hadamard_seed}"
     
     return base_dir
 
@@ -55,6 +55,7 @@ def main():
     parser.add_argument("--inverse", action="store_true", help="Order the images by their size before splitting into sub-regions.")
     parser.add_argument("--imgsz-hadamard", type=int, default=None, help="Image size for the Hadamard transform. If not provided, it will be set to imgsz.")
     parser.add_argument("--aliasing", action="store_true", help="Use aliasing for the Hadamard transform.")
+    parser.add_argument("--hadamard-seed", type=int, default=None, help="Random seed for reproducibility.")
 
     args = parser.parse_args()
 
@@ -66,6 +67,7 @@ def main():
     INVERSE = args.inverse
     IMGSZ_HADAMARD = args.imgsz_hadamard
     ALIASING = args.aliasing
+    HADAMARD_SEED = args.hadamard_seed
 
     scale_configs = {
         "s": "spipose-small_8xb64-210e_ap10k-256x256.py",
@@ -90,7 +92,8 @@ def main():
             window_size=WINDOW_SIZE,
             inverse=INVERSE,
             imgsz_hadamard=IMGSZ_HADAMARD,
-            aliasing=ALIASING
+            aliasing=ALIASING,
+            hadamard_seed=HADAMARD_SEED
         )
     _, split_original_dataset_dir = original_dataset_dir.split("-",1)
     BASE_WORK_CONFIG_PATH = f"work_dirs/spipose/{DATASET_NAME}-{split_original_dataset_dir}"
