@@ -12,8 +12,8 @@ optim_wrapper = dict(
     optimizer=dict(
         type='AdamW', lr=5e-4, betas=(0.9, 0.999), weight_decay=0.1),
     paramwise_cfg=dict(
-        num_layers=32,
-        layer_decay_rate=0.85,
+        num_layers=12,
+        layer_decay_rate=0.75,
         custom_keys={
             'bias': dict(decay_multi=0.0),
             'pos_embed': dict(decay_mult=0.0),
@@ -59,23 +59,23 @@ model = dict(
         bgr_to_rgb=True),
     backbone=dict(
         type='mmpretrain.VisionTransformer',
-        arch='huge',
+        arch='base',
         img_size=(256, 256),
         patch_size=16,
         qkv_bias=True,
-        drop_path_rate=0.55,
+        drop_path_rate=0.3,
         with_cls_token=False,
         out_type='featmap',
         patch_cfg=dict(padding=2),
         init_cfg=dict(
             type='Pretrained',
             checkpoint='https://download.openmmlab.com/mmpose/'
-            'v1/pretrained_models/mae_pretrain_vit_huge_20230913.pth'),
+            'v1/pretrained_models/mae_pretrain_vit_base_20230913.pth'),
     ),
     head=dict(
         type='SimCCHead',
-        in_channels=1280,
-        out_channels=22,
+        in_channels=768,
+        out_channels=20,
         input_size=codec['input_size'],
         in_featuremap_size=tuple([s // 16 for s in codec['input_size']]),
         simcc_split_ratio=codec['simcc_split_ratio'],
@@ -86,9 +86,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'Horse10Dataset'
+dataset_type = 'CocoDataset'
 data_mode = 'topdown'
-data_root = 'data/horse10/'
+data_root = 'data/person/'
 
 # pipelines
 train_pipeline = [

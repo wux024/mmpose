@@ -34,7 +34,7 @@ param_scheduler = [
         type='MultiStepLR',
         begin=0,
         end=10000,
-        milestones=[5000, 10000],
+        milestones=[9200, 9800],
         gamma=0.1,
         by_epoch=True)
 ]
