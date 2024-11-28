@@ -86,9 +86,9 @@ model = dict(
     test_cfg=dict(flip_test=True))
 
 # base dataset settings
-dataset_type = 'AnimalPoseDataset'
+dataset_type = 'CocoDataset'
 data_mode = 'topdown'
-data_root = 'data/animalpose/'
+data_root = 'data/twoperson/'
 
 # pipelines
 train_pipeline = [
