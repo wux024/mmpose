@@ -79,10 +79,10 @@ def main():
     HADAMARD_SEED = args.hadamard_seed
 
     scale_configs = {
-        "s": "spipose-small_8xb64-210e_ap10k-256x256.py",
-        "b": "spipose-base_8xb64-210e_ap10k-256x256.py",
-        "l": "spipose-large_8xb64-210e_ap10k-256x256.py",
-        "h": "spipose-huge_8xb64-210e_ap10k-256x256.py"
+        "s": f"spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "b": f"spipose-base_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "l": f"spipose-large_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "h": f"spipose-huge_8xb64-210e_{DATASET_NAME}-256x256.py"
     }
     configurations = []
     for scale in SCALE:
