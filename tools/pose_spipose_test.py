@@ -78,11 +78,13 @@ def main():
     ALIASING = args.aliasing
     HADAMARD_SEED = args.hadamard_seed
 
+    BASE_CONFIG_PATH = f"configs/animal_2d_keypoint/spipose/{DATASET_NAME}"
+
     scale_configs = {
-        "s": f"spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "b": f"spipose-base_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "l": f"spipose-large_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "h": f"spipose-huge_8xb64-210e_{DATASET_NAME}-256x256.py"
+        "s": f"{BASE_CONFIG_PATH}/spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "b": f"{BASE_CONFIG_PATH}/spipose-base_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "l": f"{BASE_CONFIG_PATH}/spipose-large_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "h": f"{BASE_CONFIG_PATH}/spipose-huge_8xb64-210e_{DATASET_NAME}-256x256.py"
     }
     configurations = []
     for scale in SCALE:
