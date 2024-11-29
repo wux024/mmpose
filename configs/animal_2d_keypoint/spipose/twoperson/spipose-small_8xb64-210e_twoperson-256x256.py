@@ -28,7 +28,7 @@ optim_wrapper = dict(
 # learning policy
 param_scheduler = [
     dict(
-        type='LinearLR', begin=0, end=500, start_factor=0.001,
+        type='LinearLR', begin=0, end=10000, start_factor=0.001,
         by_epoch=False),  # warm-up
     dict(
         type='MultiStepLR',
