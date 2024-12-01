@@ -93,7 +93,7 @@ model = dict(
 # base dataset settings
 dataset_type = 'CocoDataset'
 data_mode = 'topdown'
-data_root = 'data/twoperson/'
+data_root = 'data/person/'
 
 # pipelines
 train_pipeline = [
