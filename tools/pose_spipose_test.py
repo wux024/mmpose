@@ -78,13 +78,11 @@ def main():
     ALIASING = args.aliasing
     HADAMARD_SEED = args.hadamard_seed
 
-    BASE_CONFIG_PATH = f"configs/animal_2d_keypoint/spipose/{DATASET_NAME}"
-
     scale_configs = {
-        "s": f"{BASE_CONFIG_PATH}/spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "b": f"{BASE_CONFIG_PATH}/spipose-base_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "l": f"{BASE_CONFIG_PATH}/spipose-large_8xb64-210e_{DATASET_NAME}-256x256.py",
-        "h": f"{BASE_CONFIG_PATH}/spipose-huge_8xb64-210e_{DATASET_NAME}-256x256.py"
+        "s": f"spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "b": f"spipose-base_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "l": f"spipose-large_8xb64-210e_{DATASET_NAME}-256x256.py",
+        "h": f"spipose-huge_8xb64-210e_{DATASET_NAME}-256x256.py"
     }
     configurations = []
     for scale in SCALE:
@@ -116,9 +114,9 @@ def main():
     
     try:
         for config in configurations:
-            config_name = os.path.basename(config).split('.')[0]
+            config_name = config.split('.')[0]
             work_dir = os.path.join(BASE_WORK_CONFIG_PATH, config_name)
-            config_path = os.path.join(BASE_WORK_CONFIG_PATH, config)
+            config_path = os.path.join(BASE_WORK_CONFIG_PATH, config_name, f"{config_name}.py")
             checkpoint_path = find_latest_checkpoint(work_dir)
             if checkpoint_path is None:
                print(f"No checkpoint found for {work_dir}")
