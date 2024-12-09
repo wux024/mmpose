@@ -137,6 +137,7 @@ def main():
         )
     _, split_original_dataset_dir = original_dataset_dir.split("-", 1)
     BASE_WORK_CONFIG_PATH = f"work_dirs/spipose/{DATASET_NAME}-{split_original_dataset_dir}"
+    BASE_CONFIG_PATH = f"configs/animal_2d_keypoint/spipose/{DATASET_NAME}"
 
     temp_dataset_dir = f"data/{DATASET_NAME}/images"
 
@@ -149,7 +150,7 @@ def main():
         for config in configurations:
             config_name = config.split('.')[0]
             work_dir = os.path.join(BASE_WORK_CONFIG_PATH, config_name)
-            config_path = os.path.join(BASE_WORK_CONFIG_PATH, config_name, f"{config_name}.py")
+            config_path = os.path.join(BASE_CONFIG_PATH, config)
             checkpoint_path = find_latest_checkpoint(work_dir)
             if checkpoint_path is None:
                print(f"No checkpoint found for {work_dir}")
