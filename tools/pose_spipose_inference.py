@@ -157,7 +157,9 @@ def main():
             inferencer = MMPoseInferencer(
                 pose2d = config_path,
                 pose2d_weights = checkpoint_path,
-                device = DEVICE,
+                device = DEVICE
+            )
+            result_generator = inferencer(SOURCE_DIR,
                 show = SHOW,
                 radius = RADIUS,
                 thickness = THICKNESS,
@@ -168,9 +170,7 @@ def main():
                 return_vis = RETURN_VIS,
                 vis_out_dir = os.path.join(work_dir, "visualizations"),
                 return_datasamples = RETURN_DATASAMPLES,
-                pred_out_dir = os.path.join(work_dir, "predictions")
-            )
-            result_generator = inferencer(SOURCE_DIR)
+                pred_out_dir = os.path.join(work_dir, "predictions"))
             for _ in result_generator:
                 pass
 
