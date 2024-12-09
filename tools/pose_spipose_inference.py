@@ -60,7 +60,7 @@ def parse_arguments():
     parser.add_argument("--hadamard-seed", type=int, default=None, help="Seed for the Hadamard transform.")
     
     # inference options
-    parser.add_argument('--device', type=str, default='None', help='Device used for inference.')
+    parser.add_argument('--device', type=str, default='cuda:0', help='Device used for inference.')
     parser.add_argument('--show', action='store_true', help='Show visualizations.')
     parser.add_argument('--radius', type=int, default=4, help='Keypoint radius for visualization.')
     parser.add_argument('--thickness', type=int, default=1, help='Link thickness for visualization.')
