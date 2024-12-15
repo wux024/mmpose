@@ -56,6 +56,7 @@ def main():
     parser.add_argument("--imgsz-hadamard", type=int, default=None, help="Image size for the Hadamard transform. If not provided, it will be set to imgsz.")
     parser.add_argument("--aliasing", action="store_true", help="Use aliasing for the Hadamard transform.")
     parser.add_argument("--hadamard-seed", type=int, default=None, help="Random seed for reproducibility.")
+    parser.add_argument("--gpu", type=int, default=0, help="GPU id for training.")
 
     args = parser.parse_args()
 
@@ -68,8 +69,14 @@ def main():
     IMGSZ_HADAMARD = args.imgsz_hadamard
     ALIASING = args.aliasing
     HADAMARD_SEED = args.hadamard_seed
+    GPU_ID = args.gpu
 
     BASE_CONFIG_PATH = f"configs/animal_2d_keypoint/spipose/{DATASET_NAME}"
+
+    if GPU_ID is not None:
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(GPU_ID)
+    else:
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
     scale_configs = {
         "s": f"{BASE_CONFIG_PATH}/spipose-small_8xb64-210e_{DATASET_NAME}-256x256.py",
@@ -107,7 +114,7 @@ def main():
         for config in configurations:
             config_name = os.path.basename(config).split(".")[0]
             work_dir = os.path.join(BASE_WORK_CONFIG_PATH, config_name)
-            command = f"CUDA_VISIBLE_DEVICES=0 python tools/train.py {config} --work-dir {work_dir} --amp --auto-scale-lr"
+            command = f"python tools/train.py {config} --work-dir {work_dir} --amp --auto-scale-lr"
             print(f"Executing: {command}")
         subprocess.run(command, shell=True)
     finally:
