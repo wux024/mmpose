@@ -117,7 +117,7 @@ dataset_coco = dict(
 )
 
 train_dataloader = dict(
-    batch_size=16,
+    batch_size=64,
     num_workers=8,
     persistent_workers=True,
     pin_memory=True,
@@ -135,7 +135,7 @@ val_pipeline = [
 ]
 
 val_dataloader = dict(
-    batch_size=16,
+    batch_size=64,
     num_workers=8,
     persistent_workers=True,
     pin_memory=True,
@@ -151,7 +151,7 @@ val_dataloader = dict(
         pipeline=val_pipeline,
     ))
 test_dataloader = dict(
-    batch_size=16,
+    batch_size=64,
     num_workers=8,
     persistent_workers=True,
     pin_memory=True,
@@ -161,8 +161,8 @@ test_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/test.json',
-        data_prefix=dict(img='images/test/'),
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))

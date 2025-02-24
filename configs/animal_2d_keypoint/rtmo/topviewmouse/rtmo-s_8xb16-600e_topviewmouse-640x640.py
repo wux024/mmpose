@@ -164,8 +164,8 @@ test_dataloader = dict(
         type=dataset_type,
         data_root=data_root,
         data_mode=data_mode,
-        ann_file='annotations/test.json',
-        data_prefix=dict(img='images/test/'),
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=val_pipeline,
     ))
