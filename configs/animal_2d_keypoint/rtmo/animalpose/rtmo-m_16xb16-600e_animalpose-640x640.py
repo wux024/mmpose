@@ -1,7 +1,7 @@
 _base_ = ['../../../_base_/default_runtime.py']
 
 # runtime
-train_cfg = dict(max_epochs=10000, val_interval=100, dynamic_intervals=[(9800, 1)])
+train_cfg = dict(max_epochs=600, val_interval=20, dynamic_intervals=[(580, 1)])
 
 auto_scale_lr = dict(base_batch_size=256)
 
