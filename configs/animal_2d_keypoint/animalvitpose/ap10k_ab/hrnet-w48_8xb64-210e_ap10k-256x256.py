@@ -75,7 +75,7 @@ model = dict(
             'pretrain_models/hrnet_w48-8ef0771d.pth'),
     ),
     head=dict(
-        type='HeatmapHead',
+        type='SimCCHead',
         in_channels=48,
         out_channels=17,
         input_size=codec['input_size'],

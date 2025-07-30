@@ -47,7 +47,7 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet101'),
     ),
     head=dict(
-        type='HeatmapHead',
+        type='SimCCHead',
         in_channels=2048,
         out_channels=17,
         input_size=codec['input_size'],

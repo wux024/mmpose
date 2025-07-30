@@ -67,7 +67,7 @@ model = dict(
             'rtmdet/cspnext_rsb_pretrain/'
             'cspnext-s_imagenet_600e-ea671761.pth')),
     head=dict(
-        type='HeatmapHead',
+        type='SimCCHead',
         in_channels=512,
         out_channels=17,
         input_size=codec['input_size'],

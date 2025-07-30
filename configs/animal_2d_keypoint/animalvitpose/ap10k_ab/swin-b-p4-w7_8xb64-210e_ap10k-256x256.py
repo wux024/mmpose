@@ -64,7 +64,7 @@ model = dict(
             'download/v1.0.0/swin_base_patch4_window7_224_22k.pth'),
     ),
     head=dict(
-        type='HeatmapHead',
+        type='SimCCHead',
         in_channels=1024,
         out_channels=17,
         input_size=codec['input_size'],

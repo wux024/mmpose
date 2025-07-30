@@ -47,7 +47,7 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint='mmcls://shufflenet_v1'),
     ),
     head=dict(
-        type='HeatmapHead',
+        type='SimCCHead',
         in_channels=960,
         out_channels=17,
         input_size=codec['input_size'],
