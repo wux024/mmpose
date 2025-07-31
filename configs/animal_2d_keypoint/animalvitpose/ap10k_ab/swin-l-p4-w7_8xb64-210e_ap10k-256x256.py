@@ -1,7 +1,7 @@
 _base_ = ['../../../_base_/default_runtime.py']
 
 # runtime
-train_cfg = dict(max_epochs=210, val_interval=10)
+train_cfg = dict(max_epochs=500, val_interval=10)
 
 # optimizer
 optim_wrapper = dict(
@@ -26,8 +26,8 @@ param_scheduler = [
     dict(
         type='MultiStepLR',
         begin=0,
-        end=210,
-        milestones=[170, 200],
+        end=500,
+        milestones=[460, 490],
         gamma=0.1,
         by_epoch=True)
 ]
