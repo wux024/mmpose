@@ -207,6 +207,7 @@ class MMPoseInferencer(BaseMMPoseInferencer):
 
         fps = 0
         count = 0
+        forward_time = 0
 
         for proc_inputs, ori_inputs in (track(inputs, description='Inference')
                                         if self.show_progress else inputs):
