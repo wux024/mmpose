@@ -1,4 +1,4 @@
-# Animal Pose Estimation with AnimalVitPose
+# Animal Pose Estimation with AnimalViTPose
 
 Aanimal pose estimation aims to detect the keypoints of different species. It provides detailed behavioral analysis for neuroscience, medical and ecology applications. Some results are shown below.![](https://s3.bmp.ovh/imgs/2024/07/27/e1b49c32bd1cccbf.jpg)
 ## Installation
@@ -88,3 +88,16 @@ bash tools/test.sh --dataset ap10k --mode animalvitpose
 More details refer to [Training](https://mmpose.readthedocs.io/en/latest/user_guides/train_and_test.html#launch-training).
 
 
+# Citation: How to cite AnimalViTPose?
+
+
+@article{Wu2026,
+   title = {Cross-species animal pose estimation via feature map orthogonal decomposition decoder},
+   journal = {Engineering Applications of Artificial Intelligence},
+   volume = {163},
+   pages = {112749},
+   year = {2026},
+   doi = {https://doi.org/10.1016/j.engappai.2025.112749},
+   author = {Xin Wu and Yanmei Wang and Lianming Wang and Jipeng Huang},
+   keywords = {Animal pose estimation, Vision transformer, Feature map decomposition},
+}
