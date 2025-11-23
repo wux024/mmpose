@@ -91,13 +91,15 @@ More details refer to [Training](https://mmpose.readthedocs.io/en/latest/user_gu
 # Citation: How to cite AnimalViTPose?
 
 
-@article{Wu2026,
-   title = {Cross-species animal pose estimation via feature map orthogonal decomposition decoder},
-   journal = {Engineering Applications of Artificial Intelligence},
-   volume = {163},
-   pages = {112749},
-   year = {2026},
-   doi = {https://doi.org/10.1016/j.engappai.2025.112749},
-   author = {Xin Wu and Yanmei Wang and Lianming Wang and Jipeng Huang},
-   keywords = {Animal pose estimation, Vision transformer, Feature map decomposition},
-}
+```
+@article{Wu2026, 
+   title = {Cross-species animal pose estimation via feature map orthogonal decomposition decoder}, 
+   journal = {Engineering Applications of Artificial Intelligence}, 
+   volume = {163}, 
+   pages = {112749}, 
+   year = {2026}, 
+   doi = {https://doi.org/10.1016/j.engappai.2025.112749}, 
+   author = {Xin Wu and Yanmei Wang and Lianming Wang and Jipeng Huang}, 
+   keywords = {Animal pose estimation, Vision transformer, Feature map decomposition}
+   }
+```
